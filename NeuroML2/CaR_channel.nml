@@ -5,8 +5,7 @@
     xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2/Schemas/NeuroML2/NeuroML_v2alpha.xsd"
     id="CaR">
 
-    <notes>CaR channel - used to test NeuroML 2 implementation of GHK
-    </notes>
+    <notes>CaR channel - used to test NeuroML 2 implementation of GHK</notes>
 
 
     <ionChannel id="CaR" type="ionChannelHH" conductance="10pS" species="ca" neuroLexId="sao1846985919">
@@ -40,7 +39,6 @@
         <Constant name="tau3fixed" dimension="time" value="6.7ms"/>
 
         <Behavior>
-            <!--WRONG, this is only two of the conditions -->
             <DerivedVariable name="tau0" dimension="time" value="tau0fixed" valueCondition="v .lt. tau1v" valueIfFalse="0"/>
             <DerivedVariable name="tau1" dimension="time" value="(v * tau1slope  * SEC) +tau1min" valueCondition="v .gt. tau1v .and. v .lt. tau2v" valueIfFalse="0"/>
             <DerivedVariable name="tau2" dimension="time" value="(v * tau2slope  * SEC) +tau2min" valueCondition="v .gt. tau2v .and. v .lt. tau2v" valueIfFalse="0"/>
