@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2/Schemas/NeuroML2/NeuroML_v2alpha.xsd"
+	    id="naF"> 
+	
+    <notes>SPmodel8.13
+    Data on GP striatal Na+ ion channel from Ogata, et al.
+    Modified to match current clamp AP from mouse Dorsal Striataum by Rebekah Evans
+    in NeuroML 2
+    </notes>
+	
+	   
+    <ionChannel id="naF" type="ionChannelHH" conductance="10pS" species="na" neuroLexId="sao785001660">
+	
+        <gateHH id="m" instances="3">
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-25mV" scale="10mV"/>
+            <timeCourse type="InvertedUTime" taumin="0.1ms" rate="2.1ms" midpoint="-62mV" scale="-8mV"/>
+                        <!-- use rate = 2.1 = 1.45^2 since cannot have rate*rate in InvertedUTime -->
+        </gateHH>
+	
+        <gateHH id="h" instances="1">
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-60mV" scale="-6mV"/>
+            <timeCourse type="SigmoidTime" taumin="0.2754ms" rate="1.2ms" midpoint="-42mV" scale="-3mV"/>
+        </gateHH>
+	
+    </ionChannel>
+
+    <!-- Note this could be brought into Channels.xml as a standard rate -->
+    <ComponentType name="SigmoidTime" extends="voltageDepTime">
+        <Parameter name="taumin" dimension="time"/>
+        <Parameter name="rate" dimension="time"/>
+        <Parameter name="midpoint" dimension="voltage"/>
+        <Parameter name="scale" dimension="voltage"/>
+        <Behavior>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+(rate / (1 + exp(0 - (v - midpoint)/scale)))"/>
+        </Behavior>
+    </ComponentType>
+
+    <ComponentType name="InvertedUTime" extends="voltageDepTime">
+        <Parameter name="taumin" dimension="time"/>
+        <Parameter name="rate" dimension="time"/>
+        <Parameter name="midpoint" dimension="voltage"/>
+        <Parameter name="scale" dimension="voltage"/>
+        <Behavior>
+            <DerivedVariable name="a" dimension="time" value="rate / (1 + exp(0 - (v - midpoint)/scale))"/>
+            <DerivedVariable name="b" dimension="none" value="1 / (1 + exp(0 + (v - midpoint)/scale))"/>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+a*b"/>
+        </Behavior>
+    </ComponentType>
+
+</neuroml>

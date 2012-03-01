@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2/Schemas/NeuroML2/NeuroML_v2alpha.xsd"
+    id="kAs">
+
+    <notes>SPmodel8.13
+     Data on striatal slow A type K+ ion channel from Tkatch 2000
+     Inactivation has been modified with voltage dependence to match
+     current clamp AP from mouse Dorsal Striataum by Rebekah Evans, v8.13
+     Note that the scale factor in .nml must have opposite sign to the slope in the .g scripts
+     This is a partially inactivating channel. Thus need to specify inf explicitly as function of alpha and beta
+     Need to incorporate qfactor: either directly into rate, or using qfactor of NeuroML
+    </notes>
+
+
+    <ionChannel id="kAs" type="ionChannelHH" conductance="10pS" species="k" neuroLexId="sao666200564">
+
+        <gateHH id="m" instances="2">
+            <forwardRate type="HHSigmoidRate" rate="0.25per_ms" midpoint="54mV" scale="22mV"/>
+            <reverseRate type="HHSigmoidRate" rate="0.5per_ms" midpoint="-100mV" scale="-35mV"/>
+        </gateHH>
+
+        <gateHH id="h" instances="1">
+            <forwardRate type="HHSigmoidRate" rate="2.5per_s" midpoint="-95mV" scale="-16mV"/>
+            <reverseRate type="HHSigmoidRate" rate="2per_s" midpoint="50mV" scale="70mV"/>
+            <!--<inf value="0.2+0.8*alpha/(alpha+beta)"/>-->
+            <steadyState type="kAs_h_inf"/>
+        </gateHH>
+
+    </ionChannel>
+        
+    <ComponentType name="kAs_h_inf" extends="voltageDepVariable">
+        <Requirement name="alpha" dimension="per_time"/>
+        <Requirement name="beta" dimension="per_time"/>
+        <Behavior>
+            <DerivedVariable name="x" dimension="none" exposure="x" value="0.2+0.8*alpha/(alpha+beta)" valueCondition="alpha .gt. 0" valueIfFalse="0.2"/>
+        </Behavior>
+    </ComponentType>
+
+</neuroml>
