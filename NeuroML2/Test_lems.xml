@@ -54,7 +54,7 @@
             <channelPopulation id="kAsChans" ionChannel="kAs" number="16000" erev="-90mV" ion="k"/>
 
             <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="16000" ion="ca"/>
-            <channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>
+            <!--<channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
 
             <spikeThresh value="0 mV"/>
 
@@ -133,8 +133,8 @@
         <Line id="li1" quantity="sspnPop[0]/pulseGen1/i" scale="1nA"  color="#000000" save="i.dat"/>
         <Line id="li3" quantity="sspnPop[0]/biophys/membraneProperties/kAfChans/i" scale="1nA"  color="#00aaaa" save="i_kaf.dat"/>
         <Line id="li4" quantity="sspnPop[0]/biophys/membraneProperties/kDrChans/i" scale="1nA"  color="#aa00aa" save="i_kdr.dat"/>
-        <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/i" scale="1nA"  color="#aaaa00" save="i_carg.dat"/>
         <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/i" scale="1nA"  color="#007700" save="i_carn.dat"/>
+        <!--<Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/i" scale="1nA"  color="#aaaa00" save="i_carg.dat"/>-->
     </Display>
 
     <Display id="d5" title="AB example: concentration" timeScale="1ms">
@@ -143,8 +143,8 @@
     </Display>
 
     <Display id="d6" title="AB example: effective reversal potential" timeScale="1ms">
-        <Line id="li14g" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/erevEff" scale="1 mV"  color="#ffffff" save="erevG.dat"/>
         <Line id="li14n" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/erev" scale="1 mV"  color="#ff00ff" save="erevN.dat"/>
+        <!--<Line id="li14g" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/erevEff" scale="1 mV"  color="#ffffff" save="erevG.dat"/>-->
     </Display>
 
 </Simulation>
