@@ -27,13 +27,5 @@
         </Behavior>
     </ComponentType>
 	
-	
-<!-- New component type: voltage and conc dep, but returns ss, not tau -->
-    <ComponentType name="VoltageConcDepVariable" extends = "voltageDepVariable"
-               description="Base type for calcium dependent steady state ComponentType">
-        <Exposure name="inf" dimension="none"/>
-        <Requirement name="caConc" dimension="concentration"/>
-        <Requirement name="v" dimension="voltage"/>
-    </ComponentType>
 	   	 
 </neuroml>
