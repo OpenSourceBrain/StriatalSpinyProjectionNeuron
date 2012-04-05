@@ -3,7 +3,7 @@
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xmlns:xi="http://www.w3.org/2001/XInclude"
-	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2alpha.xsd"
+	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2/Schemas/NeuroML2/NeuroML_v2alpha.xsd"
 	 id="NML2_SPneuron">
 
 <!-- Single compartmental striatal spiny projection neuron with biophysics in NeuroML 2.  Should runs in Lems.
@@ -14,79 +14,83 @@ I have separated the model from the simulation -->
 	<!-- A version of this cell is in development in Genesis by Evans and Blackwell 
 	a different version of this cell, which has some tabulated channels, 
 	is in press in PLoS Comp Bioll by Evans et al. -->
-<!-- Include core NeuroML2 ComponentClass definitions -->
-   <Include file="NeuroML2CoreTypes/Cells.xml"/>
-   <Include file="NeuroML2CoreTypes/Networks.xml"/>
-   <Include file="NeuroML2CoreTypes/Simulation.xml"/>
 
-   <include file="channels/kAf_chanREqfact.nml">	
-   <include file="channels/kAs_chanREqfact.nml">	
-   <include file="channels/KDr_chanQfact.nml">	
-   <include file="channels/kIR_chanRE2.nml">	
-   <include file="channels/naFchanOgeqn.nml">
-   <include file="channels/CaR_channel.nml">
+    <!-- For now, these are included in LemsSim.xml
+    <include href="kAf_chanREqfact.nml"/>
+    <include href="kAs_chanREqfact.nml"/>
 
-   <ionChannel id="passive" compClass="ionChannelPassive" conductance="10pS"/>
+    <include href="naFchanOgeqn.nml"/>
+    <include href="KDr_chanQfact.nml"/>
+    <include href="kIR_chanRE2.nml"/>
+    <include href="CaR_channel.nml"/>
+    <include href="SKchannel.nml"/>-->
 
-<cell id="sspn1comp">
-    <notes>A test cell containing a number of the channels from the MSPN model</notes>
+    <ionChannel id="passive" type="ionChannelPassive" conductance="10pS"/>
 
-    <morphology id="morphology1comp">
+    <cell id="sspn1comp">
+        <notes>A test cell containing a number of the channels from the MSPN model</notes>
+
+        <morphology id="morphology1comp">
 
 <!--surface area = 804 microns^2 = 8.04e-10 m^2 -->
-        <segment id="0" name="Soma">
-            <proximal x="-8" y="0" z="0" diameter="16"/>
-            <distal x="8" y="0" z="0" diameter="16"/>
-        </segment>
+            <segment id="0" name="Soma">
+                <proximal x="-8" y="0" z="0" diameter="16"/>
+                <distal x="8" y="0" z="0" diameter="16"/>
+            </segment>
 
-        <segmentGroup id="all">
-            <include segmentGroup="Soma"/>
-        </segmentGroup>
+            <segmentGroup id="all">
+                <include segmentGroup="Soma"/>
+            </segmentGroup>
 
-    </morphology>
+        </morphology>
 
-   <biophysicalProperties id="MScellChanDens">
+        <biophysicalProperties id="biophys">
 	
-     <membraneProperties>
-<!-- Values calculated from original soma G * SA / single channel cond. -->
-       <channelPopulation id="leak" ionChannel="passive" number="28.9" erev="-60mV"/>
-       <channelPopulation id="kDrChans" ionChannel="KDr" number="884" erev="-90mV"  ion="k"/>
-       <channelPopulation id="kIRChans" ionChannel="kIR" number="583" erev="-90mV" ion="k"/>
-       <channelPopulation id="naFChans" ionChannel="naF" number="723000" erev="50mV" ion="na"/>
-       <channelPopulation id="kAfChans" ionChannel="kAf" number="64000" erev="-90mV" ion="k"/>
-       <channelPopulation id="kAsChans" ionChannel="kAs" number="15000" erev="-90mV" ion="k"/>
+            <membraneProperties>
 
-       <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="16000" ion="ca"/>
-       <!--<channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
+                <!-- Values calculated from original soma G * SA / single channel cond. -->
+                <channelPopulation id="leak" ionChannel="passive" number="29" erev="-60mV"/> <!-- Number should be 28.9!! -->
+                <channelPopulation id="kDrChans" ionChannel="KDr" number="884" erev="-90mV"  ion="k"/>
+                <channelPopulation id="kIRChans" ionChannel="kIR" number="583" erev="-90mV" ion="k"/>
+                <channelPopulation id="naFChans" ionChannel="naF" number="723000" erev="50mV" ion="na"/>
+                <channelPopulation id="kAfChans" ionChannel="kAf" number="64000" erev="-90mV" ion="k"/>
+                <channelPopulation id="kAsChans" ionChannel="kAs" number="15000" erev="-90mV" ion="k"/>
+
+                <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="16000" ion="ca"/>
+
+                <!--<channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
 	    
-       <specificCapacitance value="0.03 F_per_m2"/> <!--compensate for no spines -->
+                <specificCapacitance value="0.03 F_per_m2"/> <!--compensate for no spines -->
 
-<!-- I removed spike threshold - shouldn't be needed for this model 
-Also, can we just specify reversal potential for an ion and not a channel population - reduces mistakes -->       
-       <reversalPotential species="na" value="50mV"/>
-       <reversalPotential species="k" value="-90mV"/>
+                <!-- I removed spike threshold - shouldn't be needed for this model -->
+                <spikeThresh value="0 mV"/> <!--PG: Put it back in, as it crashed otherwise...-->
 
-       <initMembPotential value="-85mV"/>	
-     </membraneProperties>
+                <!--Also, can we just specify reversal potential for an ion and not a channel population - reduces mistakes
+                PG: agreed, but not possible just yet, working on it...
+                <reversalPotential species="na" value="50mV"/>
+                <reversalPotential species="k" value="-90mV"/>-->  
 
-     <intracellularProperties>
+                <initMembPotential value="-85mV"/>
+            </membraneProperties>
+
+            <intracellularProperties>
 	
-       <species id="ca" ion="ca">
-	 <concentrationModel type="decayingPoolConcentrationModel"
+                <species id="ca" ion="ca">
+                    <concentrationModel type="decayingPoolConcentrationModel"
                                      resting_conc="5e-5 mM"
                                      decay_constant="10.0 ms"
                                      shell_thickness="8.4E-6 cm"
                                      initialConcentration="5e-5 mM"
                                      initialExtConcentration="2 mM"/>
 
-       </species>
+                </species>
 
-       <resistivity value="1.0 ohm_m"/>  <!-- Used for specific axial resistance -->
+                <resistivity value="1.0 ohm_m"/>  <!-- Used for specific axial resistance -->
 	
-     </intracellularProperties>
+            </intracellularProperties>
 	
-   </biophysicalProperties>
+        </biophysicalProperties>
 
-</cell>
+    </cell>
 	
 </neuroml>
