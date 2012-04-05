@@ -18,6 +18,7 @@
 <Include file="KDr_chanQfact.nml"/>
 <Include file="kIR_chanRE2.nml"/>
 <Include file="CaR_channel.nml"/>
+<Include file="SKchannel.nml"/>
 
          <!--Main NeuroML2 content -->
 
@@ -52,6 +53,8 @@
             <channelPopulation id="naFChans" ionChannel="naF" number="120000" erev="50mV" ion="na"/>
             <channelPopulation id="kAfChans" ionChannel="kAf" number="16000" erev="-90mV" ion="k"/>
             <channelPopulation id="kAsChans" ionChannel="kAs" number="16000" erev="-90mV" ion="k"/>
+            
+            <channelPopulation id="SKChans" ionChannel="SK" number="1600" erev="-90mV" ion="k"/>
 
             <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="16000" ion="ca"/>
             <!--<channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
@@ -120,6 +123,7 @@
         <Line id="l8" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/kAs/h/q" scale="1"  color="#173456" save="kAs_h.dat"/>
         <Line id="l9" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/CaR/m/q" scale="1"  color="#668800" save="CaR_m.dat"/>
         <Line id="l10" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/CaR/h/q" scale="1"  color="#007700" save="CaR_h.dat"/>
+        <Line id="l11" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/SK/m/q" scale="1"  color="#777700" save="sk_m.dat"/>
     </Display>
 
 
@@ -134,6 +138,7 @@
         <Line id="li3" quantity="sspnPop[0]/biophys/membraneProperties/kAfChans/i" scale="1nA"  color="#00aaaa" save="i_kaf.dat"/>
         <Line id="li4" quantity="sspnPop[0]/biophys/membraneProperties/kDrChans/i" scale="1nA"  color="#aa00aa" save="i_kdr.dat"/>
         <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/i" scale="1nA"  color="#007700" save="i_carn.dat"/>
+        <Line id="li6" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/i" scale="1nA"  color="#777700" save="i_sk.dat"/>
         <!--<Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/i" scale="1nA"  color="#aaaa00" save="i_carg.dat"/>-->
     </Display>
 

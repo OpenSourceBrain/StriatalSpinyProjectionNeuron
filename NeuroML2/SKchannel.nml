@@ -2,35 +2,30 @@
 	
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  ../Schemas/NeuroML2/NeuroML_v2alpha.xsd"
+	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2/Schemas/NeuroML2/NeuroML_v2alpha.xsd"
 	 id="SK"> 
-	
-	    <!-- SK channel - calcium dependent, but not voltage dependent rates  -->
 
     <ionChannel id = "SK" conductance = "10pS" type = "ionChannelHH" species = "k">
         <notes>SK type of Calcium dependent K channel - no voltage dependence</notes>
         <gate id = "m" type = "gateHH" instances = "1">
             <q10Settings type = "q10ExpTemp" q10Factor = "1" experimentalTemp = "20.0 degC" celsius = "30.0 degC"/>
 	         <!-- if q10Factor > 1, then time constant will be divided by q10 for every 10 degrees -->
+
 	    <steadyState type="SteadyStateSigmoidConc" max="1" HillCoef="5.4" midpoint="0.57e-3 mM"/>
-	    <timeCourse type="Constant_tau" timeconst="4 ms"/>
+	    <timeCourse type="FixedTimeCourse" tau="4 ms"/>
         </gate>
     </ionChannel>
 
-    <ComponentClass name="Constant_tau" extends="voltageDepTime">
-        <Parameter name="timeconst" dimension="time"/>
-        <Dynamics>
-            <DerivedVariable name="t" exposure="t" dimension="time" value="timeconst"/>
-        </Dynamics>
-    </ComponentClass>
 	
-    <ComponentClass name = "SteadyStateSigmoidConc" extends = "voltageConcDepVariable">
-        <Parameter name="midpoint" dimension="Conc"/>
+    <ComponentType name = "SteadyStateSigmoidConc" extends = "voltageConcDepVariable">
+        <Parameter name="max" dimension="none"/>
+        <Parameter name="midpoint" dimension="concentration"/>
         <Parameter name="HillCoef" dimension="none"/>
-        <Dynamics>
-            <DerivedVariable name = "inf" exposure = "inf" dimension = "none" value = "caConc^HillCoef/(caConc^HillCoef + midpoint^HillCoef"/>
-        </Dynamics>
-    </ComponentClass>
+        <Behavior>
+                                                                                    <!--NOTE: max not used in expression!!-->
+            <DerivedVariable name = "inf" exposure = "x" dimension = "none" value = "caConc^HillCoef / (caConc^HillCoef + midpoint^HillCoef) "/>
+        </Behavior>
+    </ComponentType>
 	
 	
 <!-- New component type: voltage and conc dep, but returns ss, not tau -->
