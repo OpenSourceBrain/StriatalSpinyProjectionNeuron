@@ -20,6 +20,7 @@
         <gateHH id="m" instances="2">
             <forwardRate type="HHSigmoidRate" rate="0.25per_ms" midpoint="54mV" scale="22mV"/>
             <reverseRate type="HHSigmoidRate" rate="0.5per_ms" midpoint="-100mV" scale="-35mV"/>
+	    <q10Settings type="q10Settings" value="2"/>
         </gateHH>
 
         <gateHH id="h" instances="1">
@@ -27,6 +28,7 @@
             <reverseRate type="HHSigmoidRate" rate="2per_s" midpoint="50mV" scale="70mV"/>
             <!--<inf value="0.2+0.8*alpha/(alpha+beta)"/>-->
             <steadyState type="kAs_h_inf"/>
+	    <q10Settings type="q10Settings" value="2"/>
         </gateHH>
 
     </ionChannel>

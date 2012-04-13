@@ -56,7 +56,7 @@ I have separated the model from the simulation -->
                 <channelPopulation id="kAfChans" ionChannel="kAf" number="64000" erev="-90mV" ion="k"/>
                 <channelPopulation id="kAsChans" ionChannel="kAs" number="15000" erev="-90mV" ion="k"/>
 
-                <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="16000" ion="ca"/>
+                <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="0" ion="ca"/>
 
                 <!--<channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
 	    
