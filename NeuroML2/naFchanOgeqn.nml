@@ -18,11 +18,13 @@
             <steadyState type="HHSigmoidVariable" rate="1" midpoint="-25mV" scale="10mV"/>
             <timeCourse type="InvertedUTime" taumin="0.1ms" rate="2.1ms" midpoint="-62mV" scale="-8mV"/>
                         <!-- use rate = 2.1 = 1.45^2 since cannot have rate*rate in InvertedUTime -->
+	    <q10Settings type="q10Settings" value="1.3"/>
         </gateHH>
 	
         <gateHH id="h" instances="1">
             <steadyState type="HHSigmoidVariable" rate="1" midpoint="-60mV" scale="-6mV"/>
             <timeCourse type="SigmoidTime" taumin="0.2754ms" rate="1.2ms" midpoint="-42mV" scale="-3mV"/>
+	    <q10Settings type="q10Settings" value="1.3"/>
         </gateHH>
 	
     </ionChannel>
