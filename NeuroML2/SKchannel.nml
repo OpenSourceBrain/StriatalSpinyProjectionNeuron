@@ -8,16 +8,16 @@
     <ionChannel id = "SK" conductance = "10pS" type = "ionChannelHH" species = "k">
         <notes>SK type of Calcium dependent K channel - no voltage dependence</notes>
         <gate id = "m" type = "gateHH" instances = "1">
-            <q10Settings type = "q10ExpTemp" q10Factor = "1" experimentalTemp = "20.0 degC" celsius = "30.0 degC"/>
+            <q10Settings type="q10ExpTemp" q10Factor = "1" experimentalTemp = "20.0 degC" celsius = "30.0 degC"/>
 	         <!-- if q10Factor > 1, then time constant will be divided by q10 for every 10 degrees -->
 
-	    <steadyState type="SteadyStateSigmoidConc" max="1" HillCoef="5.4" midpoint="0.57e-3 mM"/>
-	    <timeCourse type="FixedTimeCourse" tau="4 ms"/>
+            <steadyState type="SteadyStateSigmoidConc" max="1" HillCoef="5.4" midpoint="0.57e-3 mM"/>
+            <timeCourse type="fixedTimeCourse" tau="4 ms"/>
         </gate>
     </ionChannel>
 
 	
-    <ComponentType name = "SteadyStateSigmoidConc" extends = "voltageConcDepVariable">
+    <ComponentType name = "SteadyStateSigmoidConc" extends = "baseVoltageConcDepVariable">
         <Parameter name="max" dimension="none"/>
         <Parameter name="midpoint" dimension="concentration"/>
         <Parameter name="HillCoef" dimension="none"/>

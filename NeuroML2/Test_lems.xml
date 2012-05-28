@@ -71,9 +71,9 @@
 
             <species id="ca" ion="ca">
                 <concentrationModel type="decayingPoolConcentrationModel"
-                                     resting_conc="5e-5 mM"
-                                     decay_constant="10.0 ms"
-                                     shell_thickness="8.4E-6 cm"
+                                     restingConc="5e-5 mM"
+                                     decayConstant="10.0 ms"
+                                     shellThickness="8.4E-6 cm"
                                      initialConcentration="5e-5 mM"
                                      initialExtConcentration="2 mM"/>
             </species>

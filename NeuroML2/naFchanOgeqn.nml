@@ -15,22 +15,22 @@
     <ionChannel id="naF" type="ionChannelHH" conductance="10pS" species="na" neuroLexId="sao785001660">
 	
         <gateHH id="m" instances="3">
+            <q10Settings type="q10Fixed" fixedQ10="1.3"/>
             <steadyState type="HHSigmoidVariable" rate="1" midpoint="-25mV" scale="10mV"/>
             <timeCourse type="InvertedUTime" taumin="0.1ms" rate="2.1ms" midpoint="-62mV" scale="-8mV"/>
                         <!-- use rate = 2.1 = 1.45^2 since cannot have rate*rate in InvertedUTime -->
-	    <q10Settings type="q10Settings" value="1.3"/>
         </gateHH>
 	
         <gateHH id="h" instances="1">
+            <q10Settings type="q10Fixed" fixedQ10="1.3"/>
             <steadyState type="HHSigmoidVariable" rate="1" midpoint="-60mV" scale="-6mV"/>
             <timeCourse type="SigmoidTime" taumin="0.2754ms" rate="1.2ms" midpoint="-42mV" scale="-3mV"/>
-	    <q10Settings type="q10Settings" value="1.3"/>
         </gateHH>
 	
     </ionChannel>
 
     <!-- Note this could be brought into Channels.xml as a standard rate -->
-    <ComponentType name="SigmoidTime" extends="voltageDepTime">
+    <ComponentType name="SigmoidTime" extends="baseVoltageDepTime">
         <Parameter name="taumin" dimension="time"/>
         <Parameter name="rate" dimension="time"/>
         <Parameter name="midpoint" dimension="voltage"/>
@@ -40,7 +40,7 @@
         </Behavior>
     </ComponentType>
 
-    <ComponentType name="InvertedUTime" extends="voltageDepTime">
+    <ComponentType name="InvertedUTime" extends="baseVoltageDepTime">
         <Parameter name="taumin" dimension="time"/>
         <Parameter name="rate" dimension="time"/>
         <Parameter name="midpoint" dimension="voltage"/>

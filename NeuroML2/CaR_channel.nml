@@ -12,7 +12,7 @@
 
         <gateHH id="m" instances="1">
             <steadyState type="HHSigmoidVariable" rate="1" midpoint="-10.3mV" scale="6.6mV"/>
-            <timeCourse type="FixedTimeCourse" tau="1.7ms"/>
+            <timeCourse type="fixedTimeCourse" tau="1.7ms"/>
         </gateHH>
 
         <gateHH id="h" instances="1">
@@ -22,7 +22,7 @@
 
     </ionChannel>
 
-    <ComponentType name="CustomTime" extends="voltageDepTime">
+    <ComponentType name="CustomTime" extends="baseVoltageDepTime">
         <Constant name="SEC" dimension="time" value="1s"/>
 
         <Constant name="tau0fixed" dimension="time" value="33.33ms"/>

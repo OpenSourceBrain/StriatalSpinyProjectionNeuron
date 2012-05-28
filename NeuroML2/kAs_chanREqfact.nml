@@ -18,22 +18,22 @@
     <ionChannel id="kAs" type="ionChannelHH" conductance="10pS" species="k" neuroLexId="sao666200564">
 
         <gateHH id="m" instances="2">
+            <q10Settings type="q10Fixed" fixedQ10="2"/>
             <forwardRate type="HHSigmoidRate" rate="0.25per_ms" midpoint="54mV" scale="22mV"/>
             <reverseRate type="HHSigmoidRate" rate="0.5per_ms" midpoint="-100mV" scale="-35mV"/>
-	    <q10Settings type="q10Settings" value="2"/>
         </gateHH>
 
         <gateHH id="h" instances="1">
+            <q10Settings type="q10Fixed" fixedQ10="2"/>
             <forwardRate type="HHSigmoidRate" rate="2.5per_s" midpoint="-95mV" scale="-16mV"/>
             <reverseRate type="HHSigmoidRate" rate="2per_s" midpoint="50mV" scale="70mV"/>
             <!--<inf value="0.2+0.8*alpha/(alpha+beta)"/>-->
             <steadyState type="kAs_h_inf"/>
-	    <q10Settings type="q10Settings" value="2"/>
         </gateHH>
 
     </ionChannel>
         
-    <ComponentType name="kAs_h_inf" extends="voltageDepVariable">
+    <ComponentType name="kAs_h_inf" extends="baseVoltageDepVariable">
         <Requirement name="alpha" dimension="per_time"/>
         <Requirement name="beta" dimension="per_time"/>
         <Behavior>
