@@ -19,6 +19,7 @@
 <Include file="KDr_chanQfact.nml"/>
 <Include file="kIR_chanRE2.nml"/>
 <Include file="CaR_channel.nml"/>
+<Include file="CaPool.nml"/>
 
 <!-- Include core NeuroML2 ComponentClass definitions -->
 <Include file="MScellLems.nml"/>

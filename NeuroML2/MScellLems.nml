@@ -75,15 +75,7 @@ I have separated the model from the simulation -->
 
             <intracellularProperties>
 	
-                <species id="ca" ion="ca">
-                    <concentrationModel type="decayingPoolConcentrationModel"
-                                     restingConc="5e-5 mM"
-                                     decayConstant="10.0 ms"
-                                     shellThickness="8.4E-6 cm"
-                                     initialConcentration="5e-5 mM"
-                                     initialExtConcentration="2 mM"/>
-
-                </species>
+                <species id="ca" ion="ca" concentrationModel="CaPool" initialConcentration="5e-5 mM" initialExtConcentration="2 mM"/>
 
                 <resistivity value="1.0 ohm_m"/>  <!-- Used for specific axial resistance -->
 	
