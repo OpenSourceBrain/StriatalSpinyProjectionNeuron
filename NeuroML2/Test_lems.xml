@@ -19,6 +19,7 @@
 <Include file="kIR_chanRE2.nml"/>
 <Include file="CaR_channel.nml"/>
 <Include file="SKchannel.nml"/>
+<Include file="CaPool.nml"/>
 
          <!--Main NeuroML2 content -->
 
@@ -69,14 +70,7 @@
 
         <intracellularProperties>
 
-            <species id="ca" ion="ca">
-                <concentrationModel type="decayingPoolConcentrationModel"
-                                     restingConc="5e-5 mM"
-                                     decayConstant="10.0 ms"
-                                     shellThickness="8.4E-6 cm"
-                                     initialConcentration="5e-5 mM"
-                                     initialExtConcentration="2 mM"/>
-            </species>
+            <species id="ca" ion="ca" concentrationModel="CaPool" initialConcentration="5e-5 mM" initialExtConcentration="2 mM"/>
 
             <resistivity value="0.1 kohm_cm"/>
 
