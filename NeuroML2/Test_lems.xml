@@ -18,10 +18,10 @@
 <Include file="KDr_chanQfact.nml"/>
 <Include file="kIR_chanRE2.nml"/>
 <Include file="CaR_channel.nml"/>
-<Include file="SKchannel.nml"/>
 <Include file="CaPool.nml"/>
-
-         <!--Main NeuroML2 content -->
+   <!--
+<Include file="SKchannel.nml"/>
+      Main NeuroML2 content -->
 
 
 <ionChannel id="passive" compClass="ionChannelPassive" conductance="10pS"/>
@@ -48,23 +48,25 @@
 
         <membraneProperties>
 
-            <channelPopulation id="leak" ionChannel="passive" number="3000" erev="-60mV"/>
-            <channelPopulation id="kDrChans" ionChannel="KDr" number="10000" erev="-90mV"  ion="k"/>
-            <channelPopulation id="kIRChans" ionChannel="kIR" number="1000" erev="-90mV" ion="k"/>
-            <channelPopulation id="naFChans" ionChannel="naF" number="120000" erev="50mV" ion="na"/>
-            <channelPopulation id="kAfChans" ionChannel="kAf" number="16000" erev="-90mV" ion="k"/>
-            <channelPopulation id="kAsChans" ionChannel="kAs" number="16000" erev="-90mV" ion="k"/>
+            <channelDensity id="leak" ionChannel="passive" condDensity="1 S_per_m2" erev="-60mV" ion="non_specific"/>
+            <channelDensity id="naFChans" ionChannel="naF" condDensity="9000 S_per_m2" erev="50mV" ion="na"/>
+            <channelDensity id="kDrChans" ionChannel="KDr" condDensity="6.04 S_per_m2" erev="-90mV"  ion="k"/>
+            <channelDensity id="kIRChans" ionChannel="kIR" condDensity="8 S_per_m2" erev="-90mV"  ion="k"/>
+            <channelDensity id="kAfChans" ionChannel="kAf" condDensity="765.24 S_per_m2" erev="-90mV"  ion="k"/>
+            <channelDensity id="kAsChans" ionChannel="kAs" condDensity="360.1 S_per_m2" erev="-90mV"  ion="k"/>
+           
             
+            <!--<channelDensityGHK id="CaRChansG" ionChannel="CaR" permeability="1e-6 m_per_s" ion="ca"/>
+
             <channelPopulation id="SKChans" ionChannel="SK" number="1600" erev="-90mV" ion="k"/>
 
-            <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="16000" ion="ca"/>
-            <!--<channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
+            <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="16000" ion="ca"/>-->
 
             <spikeThresh value="0 mV"/>
 
-            <specificCapacitance value="1.0 uF_per_cm2"/>
+            <specificCapacitance value="0.03 F_per_m2"/>
 
-            <initMembPotential value="-60.0 mV"/>
+            <initMembPotential value="-75.0 mV"/>
 
         </membraneProperties>
 
@@ -83,8 +85,8 @@
 
 
 
-<pulseGenerator id="pulseGen1" delay="50ms" duration="50ms" amplitude="2 nA" />
-<pulseGenerator id="pulseGen2" delay="150ms" duration="50ms" amplitude="-0.2 nA" />
+<pulseGenerator id="pulseGen1" delay="50ms" duration="50ms" amplitude="0.3 nA" />
+<pulseGenerator id="pulseGen2" delay="150ms" duration="50ms" amplitude="-0.01 nA" />
 
 
 
@@ -115,36 +117,36 @@
         <Line id="l6" quantity="sspnPop[0]/biophys/membraneProperties/kIRChans/kIR/m/q" scale="1"  color="#3f0aaf" save="kIR_m.dat"/>
         <Line id="l7" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/kAs/m/q" scale="1"  color="#472910" save="kAs_m.dat"/>
         <Line id="l8" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/kAs/h/q" scale="1"  color="#173456" save="kAs_h.dat"/>
-        <Line id="l9" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/CaR/m/q" scale="1"  color="#668800" save="CaR_m.dat"/>
-        <Line id="l10" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/CaR/h/q" scale="1"  color="#007700" save="CaR_h.dat"/>
-        <Line id="l11" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/SK/m/q" scale="1"  color="#777700" save="sk_m.dat"/>
+        <!--<Line id="l9" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/CaR/m/q" scale="1"  color="#668800" save="CaR_m.dat"/>
+        <Line id="l10" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/CaR/h/q" scale="1"  color="#007700" save="CaR_h.dat"/>
+        <Line id="l11" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/SK/m/q" scale="1"  color="#777700" save="sk_m.dat"/>-->
     </Display>
 
 
     <Display id="d4" title="AB example: small currents" timeScale="1ms">
-        <Line id="li2" quantity="sspnPop[0]/biophys/membraneProperties/naFChans/i" scale="1nA"  color="#00aa00" save="i_naf.dat"/>
-        <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/kIRChans/i" scale="1nA"  color="#3a0f3a" save="i_kir.dat"/>
-        <Line id="li6" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/i" scale="1nA"  color="#4444aa" save="i_kas.dat"/>
+        <Line id="li2" quantity="sspnPop[0]/biophys/membraneProperties/naFChans/iDensity" scale="1mA_per_cm2"  color="#00aa00" save="i_naf.dat"/>
+        <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/kIRChans/iDensity" scale="1mA_per_cm2"  color="#3a0f3a" save="i_kir.dat"/>
+        <Line id="li6" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/iDensity" scale="1mA_per_cm2"  color="#4444aa" save="i_kas.dat"/>
+        <Line id="li3" quantity="sspnPop[0]/biophys/membraneProperties/kAfChans/iDensity" scale="1mA_per_cm2"   color="#00aaaa" save="i_kaf.dat"/>
+        <Line id="li4" quantity="sspnPop[0]/biophys/membraneProperties/kDrChans/iDensity" scale="1mA_per_cm2"   color="#aa00aa" save="i_kdr.dat"/>
+        <!--<Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/iDensity" scale="1mA_per_cm2"  color="#aaaa00" save="i_carg.dat"/>-->
     </Display>
     
     <Display id="d3" title="AB example: large currents" timeScale="1ms">
         <Line id="li1" quantity="sspnPop[0]/pulseGen1/i" scale="1nA"  color="#000000" save="i.dat"/>
-        <Line id="li3" quantity="sspnPop[0]/biophys/membraneProperties/kAfChans/i" scale="1nA"  color="#00aaaa" save="i_kaf.dat"/>
-        <Line id="li4" quantity="sspnPop[0]/biophys/membraneProperties/kDrChans/i" scale="1nA"  color="#aa00aa" save="i_kdr.dat"/>
-        <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/i" scale="1nA"  color="#007700" save="i_carn.dat"/>
-        <Line id="li6" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/i" scale="1nA"  color="#777700" save="i_sk.dat"/>
-        <!--<Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/i" scale="1nA"  color="#aaaa00" save="i_carg.dat"/>-->
+        <!--<Line id="li6" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/iDensity" scale="1mA_per_cm2"  color="#777700" save="i_sk.dat"/>
+        <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/iDensity" scale="1mA_per_cm2"  color="#007700" save="i_carn.dat"/>-->
     </Display>
 
     <Display id="d5" title="AB example: concentration" timeScale="1ms">
-        <Line id="li11" quantity="sspnPop[0]/caConcExt" scale="1 mM"  color="#ff00ff" save="cao.dat"/>
+        <!--<Line id="li11" quantity="sspnPop[0]/caConcExt" scale="1 mM"  color="#ff00ff" save="cao.dat"/>-->
         <Line id="li12" quantity="sspnPop[0]/caConc" scale="1 mM"  color="#ffffff" save="cai.dat"/>
     </Display>
-
+<!--
     <Display id="d6" title="AB example: effective reversal potential" timeScale="1ms">
         <Line id="li14n" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/erev" scale="1 mV"  color="#ff00ff" save="erevN.dat"/>
-        <!--<Line id="li14g" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/erevEff" scale="1 mV"  color="#ffffff" save="erevG.dat"/>-->
-    </Display>
+        <Line id="li14g" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/erevEff" scale="1 mV"  color="#ffffff" save="erevG.dat"/>
+    </Display>-->
 
 </Simulation>
 
