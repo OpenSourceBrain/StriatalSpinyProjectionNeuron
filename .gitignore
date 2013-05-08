@@ -4,4 +4,5 @@
 *.bak
 *py.class
 NeuroML2/genesis
+NeuroML2a
 NeuroML2/*.dat
