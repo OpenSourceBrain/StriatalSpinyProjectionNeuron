@@ -14,15 +14,15 @@
 
     <ionChannel id="kAf" type="ionChannelHH" conductance="10pS" species="k" neuroLexId="sao666200564">
 
-        <gateHH id="m" instances="2">
+        <gateHHrates id="m" instances="2">
             <forwardRate type="HHSigmoidRate" rate="1.8per_ms" midpoint="-18mV" scale="13mV"/>
             <reverseRate type="HHSigmoidRate" rate="0.45per_ms" midpoint="2mV" scale="-11mV"/>
-        </gateHH>
+        </gateHHrates>
 
-        <gateHH id="h" instances="1">
+        <gateHHrates id="h" instances="1">
             <forwardRate type="HHSigmoidRate" rate="0.105per_ms" midpoint="-121mV" scale="-22mV"/>
             <reverseRate type="HHSigmoidRate" rate="0.065per_ms" midpoint="-55mV" scale="11mV"/>
-        </gateHH>
+        </gateHHrates>
 
     </ionChannel>
 

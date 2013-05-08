@@ -16,10 +16,10 @@
 
     <ionChannel id="kIR" type="ionChannelHH" conductance="10pS" species="k" neuroLexId="sao666200564">
 
-        <gateHH id="m" instances="1">
+        <gateHHrates id="m" instances="1">
             <forwardRate type="HHExpRate" rate="1e-5per_ms" midpoint="0mV" scale="11mV"/>
             <reverseRate type="HHSigmoidRate" rate="1.2per_ms" midpoint="30mV" scale="50mV"/>
-        </gateHH>
+        </gateHHrates>
 
     </ionChannel>
 

@@ -17,28 +17,32 @@
 
     <ionChannel id="kAs" type="ionChannelHH" conductance="10pS" species="k" neuroLexId="sao666200564">
 
-        <gateHH id="m" instances="2">
+        <gateHHrates id="m" instances="2">
             <q10Settings type="q10Fixed" fixedQ10="2"/>
             <forwardRate type="HHSigmoidRate" rate="0.25per_ms" midpoint="54mV" scale="22mV"/>
             <reverseRate type="HHSigmoidRate" rate="0.5per_ms" midpoint="-100mV" scale="-35mV"/>
-        </gateHH>
+        </gateHHrates>
 
-        <gateHH id="h" instances="1">
+        <gateHHratesTauInf id="h" instances="1">
             <q10Settings type="q10Fixed" fixedQ10="2"/>
             <forwardRate type="HHSigmoidRate" rate="2.5per_s" midpoint="-95mV" scale="-16mV"/>
             <reverseRate type="HHSigmoidRate" rate="2per_s" midpoint="50mV" scale="70mV"/>
-            <!--<inf value="0.2+0.8*alpha/(alpha+beta)"/>-->
             <steadyState type="kAs_h_inf"/>
-        </gateHH>
+        </gateHHratesTauInf>
 
     </ionChannel>
         
     <ComponentType name="kAs_h_inf" extends="baseVoltageDepVariable">
         <Requirement name="alpha" dimension="per_time"/>
         <Requirement name="beta" dimension="per_time"/>
-        <Behavior>
-            <DerivedVariable name="x" dimension="none" exposure="x" value="0.2+0.8*alpha/(alpha+beta)" valueCondition="alpha .gt. 0" valueIfFalse="0.2"/>
-        </Behavior>
+        <Dynamics>
+            <!--<DerivedVariable name="x" dimension="none" exposure="x" value="0.2+0.8*alpha/(alpha+beta)" valueCondition="alpha .gt. 0" valueIfFalse="0.2"/>-->
+
+			<ConditionalDerivedVariable name="x" dimension="none"  exposure="x">
+				<Case condition="alpha .gt. 0" value="0.2+0.8*alpha/(alpha+beta)"/>
+				<Case condition="alpha .leq. 0" value="0.2"/>
+			</ConditionalDerivedVariable>
+        </Dynamics>
     </ComponentType>
 
 </neuroml>
