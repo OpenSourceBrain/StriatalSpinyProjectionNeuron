@@ -1,3 +1,4 @@
+*.svg
 *.pyc
 *i686
 *x86_64
@@ -6,3 +7,6 @@
 NeuroML2/genesis
 NeuroML2a
 NeuroML2/*.dat
+*.gv
+*.mod
+*.png
