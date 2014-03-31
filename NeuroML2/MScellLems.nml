@@ -3,7 +3,7 @@
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xmlns:xi="http://www.w3.org/2001/XInclude"
-	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2/Schemas/NeuroML2/NeuroML_v2alpha.xsd"
+	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.github.com/NeuroML/NeuroML2/master/Schemas/NeuroML2/NeuroML_v2beta2.xsd"
 	 id="NML2_SPneuron">
 
 <!-- Single compartmental striatal spiny projection neuron with biophysics in NeuroML 2.  Should runs in Lems.
@@ -39,7 +39,7 @@ I have separated the model from the simulation -->
             </segment>
 
             <segmentGroup id="all">
-                <include segmentGroup="Soma"/>
+                <member segment="0"/>
             </segmentGroup>
 
         </morphology>
@@ -55,15 +55,16 @@ I have separated the model from the simulation -->
                 <channelPopulation id="naFChans" ionChannel="naF" number="723000" erev="50mV" ion="na"/>
                 <channelPopulation id="kAfChans" ionChannel="kAf" number="64000" erev="-90mV" ion="k"/>
                 <channelPopulation id="kAsChans" ionChannel="kAs" number="15000" erev="-90mV" ion="k"/>
+                
+                <channelDensityNernst id="CaRChansN" ionChannel="CaR" ion="ca" condDensity="200 S_per_m2"/>
 
-                <channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="0" ion="ca"/>
+                <!--<channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="0" ion="ca"/>
 
-                <!--<channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
+                <channelPopulationGHK    id="CaRChansG" ionChannel="CaR" number="16000" ion="ca"/>-->
 	    
-                <specificCapacitance value="0.03 F_per_m2"/> <!--compensate for no spines -->
-
-                <!-- I removed spike threshold - shouldn't be needed for this model -->
                 <spikeThresh value="0 mV"/> <!--PG: Put it back in, as it crashed otherwise...-->
+                
+                <specificCapacitance value="0.03 F_per_m2"/> <!--compensate for no spines -->
 
                 <!--Also, can we just specify reversal potential for an ion and not a channel population - reduces mistakes
                 PG: agreed, but not possible just yet, working on it...

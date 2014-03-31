@@ -2,7 +2,7 @@
 	
 <neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  http://neuroml.svn.sourceforge.net/viewvc/neuroml/NeuroML2/Schemas/NeuroML2/NeuroML_v2alpha.xsd"
+    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/master/Schemas/NeuroML2/NeuroML_v2beta2.xsd"
     id="kAs">
 
     <notes>SPmodel8.13
@@ -17,18 +17,18 @@
 
     <ionChannel id="kAs" type="ionChannelHH" conductance="10pS" species="k" neuroLexId="sao666200564">
 
-        <gateHHrates id="m" instances="2">
+        <gate id="m" type="gateHHrates" instances="2">
             <q10Settings type="q10Fixed" fixedQ10="2"/>
             <forwardRate type="HHSigmoidRate" rate="0.25per_ms" midpoint="54mV" scale="22mV"/>
             <reverseRate type="HHSigmoidRate" rate="0.5per_ms" midpoint="-100mV" scale="-35mV"/>
-        </gateHHrates>
+        </gate>
 
-        <gateHHratesTauInf id="h" instances="1">
+        <gate id="h" type="gateHHratesInf" instances="1">
             <q10Settings type="q10Fixed" fixedQ10="2"/>
             <forwardRate type="HHSigmoidRate" rate="2.5per_s" midpoint="-95mV" scale="-16mV"/>
             <reverseRate type="HHSigmoidRate" rate="2per_s" midpoint="50mV" scale="70mV"/>
             <steadyState type="kAs_h_inf"/>
-        </gateHHratesTauInf>
+        </gate>
 
     </ionChannel>
         

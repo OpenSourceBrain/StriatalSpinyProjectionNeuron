@@ -89,15 +89,12 @@
 </cell>
 
 
-
-
 <pulseGenerator id="pulseGen1" delay="50ms" duration="50ms" amplitude="0.3 nA" />
+
 <pulseGenerator id="pulseGen2" delay="150ms" duration="50ms" amplitude="-0.01 nA" />
 
 
-
-<network id="net1">
-    <extracellularProperties temperature="32degC"/>
+<network id="net1" type="networkWithTemperature" temperature="32.0 degC">
     <population id="sspnPop" component="sspn" size="1"/>
     <explicitInput target="sspnPop[0]" input="pulseGen1"/>
     <explicitInput target="sspnPop[0]" input="pulseGen2"/>
@@ -123,39 +120,23 @@
         <Line id="kIR_m" quantity="sspnPop[0]/biophys/membraneProperties/kIRChans/kIR/m/q" scale="1"  color="#3f0aaf" timeScale="1ms"/>
         <Line id="CaR_m" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/CaR/m/q" scale="1"  color="#668800" timeScale="1ms"/>
         <Line id="CaR_h" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/CaR/h/q" scale="1"  color="#007700" timeScale="1ms"/>
-        <!--<Line id="l8" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/kAs/m/q" scale="1"  color="#472910" timeScale="1ms"/>
-        <Line id="l9" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/kAs/h/q" scale="1"  color="#173456" timeScale="1ms"/>
-        !--
-        <Line id="l12" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/SK/m/q" scale="1"  color="#777700" timeScale="1ms"/>-- -->
+
     </Display>
 
 
-    <Display id="d4" title="AB example: small currents" timeScale="1ms" xmin="0" xmax="250" ymin="-0.1" ymax="1.1">
-        <Line id="li2" quantity="sspnPop[0]/biophys/membraneProperties/naFChans/iDensity" scale="1mA_per_cm2"  color="#00aa00"   timeScale="1ms"/>
-        <Line id="li3" quantity="sspnPop[0]/biophys/membraneProperties/kAfChans/iDensity" scale="1mA_per_cm2"   color="#00aaaa" timeScale="1ms"/>
-        <Line id="li4" quantity="sspnPop[0]/biophys/membraneProperties/kDrChans/iDensity" scale="1mA_per_cm2"   color="#aa00aa" timeScale="1ms"/>
-        <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/kIRChans/iDensity" scale="1mA_per_cm2"  color="#3a0f3a" timeScale="1ms"/>
-        <!--<Line id="li6" quantity="sspnPop[0]/biophys/membraneProperties/kAsChans/iDensity" scale="1mA_per_cm2"  color="#4444aa" timeScale="1ms"/>-->
-    </Display>
-    
-<!--
-    <Display id="d3" title="AB example: large currents" timeScale="1ms">
-        <Line id="li1" quantity="sspnPop[0]/pulseGen1/i" scale="1nA"  color="#000000" save="i.dat"/>
-        !--<Line id="li6" quantity="sspnPop[0]/biophys/membraneProperties/SKChans/iDensity" scale="1mA_per_cm2"  color="#777700" timeScale="1ms"/>
-        <Line id="li5" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/iDensity" scale="1mA_per_cm2"  color="#007700" timeScale="1ms"/>--
-    </Display>-->
-
-    <Display id="d5" title="AB example: concentration" timeScale="1ms" xmin="0" xmax="250" ymin="4e-5" ymax="15e-5">
-        <!--<Line id="li11" quantity="sspnPop[0]/caConcExt" scale="1 mM"  color="#ff00ff" timeScale="1ms"/>-->
-        <Line id="li12" quantity="sspnPop[0]/caConc" scale="1 mM"  color="#ffffff" timeScale="1ms"/>
+    <Display id="d4" title="AB example: small currents" timeScale="1ms" xmin="0" xmax="250" ymin="-0.07" ymax="0.025">
+        <Line id="naF_iDensity" quantity="sspnPop[0]/biophys/membraneProperties/naFChans/iDensity" scale="1mA_per_cm2"  color="#00aa00"   timeScale="1ms"/>
+        <Line id="kAf_iDensity" quantity="sspnPop[0]/biophys/membraneProperties/kAfChans/iDensity" scale="1mA_per_cm2"   color="#00aaaa" timeScale="1ms"/>
+        <Line id="kDr_iDensity" quantity="sspnPop[0]/biophys/membraneProperties/kDrChans/iDensity" scale="1mA_per_cm2"   color="#aa00aa" timeScale="1ms"/>
+        <Line id="kIR_iDensity" quantity="sspnPop[0]/biophys/membraneProperties/kIRChans/iDensity" scale="1mA_per_cm2"  color="#3a0f3a" timeScale="1ms"/>
     </Display>
 
 
-<!--
-    <Display id="d6" title="AB example: effective reversal potential" timeScale="1ms">
-        <Line id="li14n" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansN/erev" scale="1 mV"  color="#ff00ff" timeScale="1ms"/>
-        <Line id="li14g" quantity="sspnPop[0]/biophys/membraneProperties/CaRChansG/erevEff" scale="1 mV"  color="#ffffff" timeScale="1ms"/>
-    </Display>-->
+    <Display id="d5" title="AB example: concentration" timeScale="1ms" xmin="0" xmax="250" ymin="4e-5" ymax="35e-5">
+        <Line id="caConc" quantity="sspnPop[0]/caConc" scale="1 mM"  color="#ffffff" timeScale="1ms"/>
+    </Display>
+
+
 
 </Simulation>
 
