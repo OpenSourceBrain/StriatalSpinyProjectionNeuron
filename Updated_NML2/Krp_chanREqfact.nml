@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd"
+	    id="Krp"> 
+	
+    <notes>SPmodel8.13
+    Data tuned to fit Nisenbaum 1996 fig 9D (hinf, 87% inactivating) and 9B (htau)
+    </notes>
+	
+   
+    <ionChannel id="Krp" type="ionChannelHH" conductance="10pS" species="k">
+	
+        <gate id="m" type="gateHHrates" instances="2">
+            <q10Settings type="q10Fixed" fixedQ10="3"/>
+	    <forwardRate type="HHSigmoidRate" rate="0.016per_ms" midpoint="0mV" scale="20mV"/>
+            <reverseRate type="HHSigmoidRate" rate="0.0024per_ms" midpoint="0mV" scale="-40mV"/>
+        </gate>
+	
+        <gate id="h" type="gateHHratesTauInf" instances="1">
+            <q10Settings type="q10Fixed" fixedQ10="3"/>
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="56mV" scale="-15mV"/>
+            <timeCourse type="SigmoidTime"/>
+        </gate>
+	
+    </ionChannel>
+
+    <!-- Note this could be brought into Channels.xml as a standard rate -->
+
+    <ComponentType name="Krp_h_tau_tau" extends="baseVoltageDepTime">
+        <Constant name="taumin" dimension="time" value="0.5508ms"/>
+        <Constant name="rate" dimension="time" value="2.4ms"/>
+        <Constant name="midpoint" dimension="voltage" value="42mV"/>
+        <Constant name="scale" dimension="voltage" value="-3mV"/>
+        <Dynamics>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+(rate / (1 + exp(0 - (v - midpoint)/scale)))"/>
+        </Dynamics>
+    </ComponentType>
+
+    <ComponentType name="Krp_h_inf_inf" extends="baseVoltageDepTime">
+        <Constant name="ss_min" dimension="none" value="0.13"/>
+        <Constant name="ss_max" dimension="none" value="0.87"/>
+	<Constant name="rate" dimension="none" value="1"/>
+        <Constant name="midpoint" dimension="voltage" value="56mV"/>
+        <Constant name="scale" dimension="voltage" value="-14mV"/>
+        <Dynamics>
+            <DerivedVariable name="a" dimension="time" value="rate / (1 + exp(0 - (v - midpoint)/scale))"/>
+            <DerivedVariable name="b" dimension="none" value="1 / (1 + exp(0 + (v - midpoint)/scale))"/>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+a*b"/>
+        </Dynamics>
+    </ComponentType>
+
+</neuroml>

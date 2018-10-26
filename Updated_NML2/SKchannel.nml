@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd"
+	 id="SK"> 
+
+    <ionChannel id = "SK" conductance = "10pS" type = "ionChannelHH" species = "k">
+        <notes>SK type of Calcium dependent K channel - no voltage dependence</notes>
+        <gate id = "m" type = "gateHHtauInf" instances = "1">
+            <q10Settings type="q10ExpTemp" q10Factor = "1" experimentalTemp = "20.0 degC"/>
+	    <!-- if q10Factor > 1, then time constant will be divided by q10 for every 10 degrees -->
+            <steadyState type="SteadyStateSigmoidConc"/>
+            <timeCourse type="fixedTimeCourse" tau="4 ms"/>
+        </gate>
+    </ionChannel>
+
+	
+    <ComponentType name = "SteadyStateSigmoidConc" extends = "baseVoltageConcDepVariable">
+        <Constant name="max" dimension="none" value="1"/>
+        <Constant name="midpoint" dimension="concentration" value="0.57e-3 mM"/>
+        <Constant name="HillCoef" dimension="none" value="5.4"/>
+        <Behavior>
+            <!--NOTE: max not used in expression!!-->
+            <DerivedVariable name = "inf" exposure = "x" dimension = "none" value = "caConc^HillCoef / (caConc^HillCoef + midpoint^HillCoef) "/>
+        </Behavior>
+    </ComponentType>
+	
+	   	 
+</neuroml>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd"
+    id="kIR">
+
+    <notes>SPmodel8.13
+    Hyperpolarization activated potassium current. Parameters inferred from
+    current clamp data from mouse Dorsal Striataum by Rebekah Evans, v8.13
+    Note that the scale factor in .nml must have opposite sign to the slope in the .g scripts
+    Need to incorporate qfactor: either directly into rate, or using qfactor of NeuroML
+    Does forward rate need to be 1e-5
+    </notes>
+
+
+    <ionChannel id="kIR" type="ionChannelHH" conductance="10pS" species="k">
+
+        <gate id="m" type="gateHHrates" instances="1">
+	    <q10Settings type="q10Fixed" fixedQ10="1.0"/>
+            <forwardRate type="HHExpRate" rate="8e-6per_ms" midpoint="0mV" scale="-11mV"/>
+            <reverseRate type="HHSigmoidRate" rate="1per_ms" midpoint="40mV" scale="40mV"/>
+        </gate>
+
+    </ionChannel>
+
+
+</neuroml>

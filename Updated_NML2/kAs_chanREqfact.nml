@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd"
+    id="kAs">
+
+    <notes>SPmodel8.13
+     Data on striatal slow A type K+ ion channel from Tkatch 2000
+     Inactivation has been modified with voltage dependence to match
+     current clamp AP from mouse Dorsal Striataum by Rebekah Evans, v8.13
+     Note that the scale factor in .nml must have opposite sign to the slope in the .g scripts
+     This is a partially inactivating channel. Thus need to specify inf explicitly as function of alpha and beta
+     Need to incorporate qfactor: either directly into rate, or using qfactor of NeuroML
+    </notes>
+
+
+    <ionChannel id="kAs" type="ionChannelHH" conductance="10pS" species="k">
+
+        <gate id="m" type="gateHHrates" instances="2">
+            <q10Settings type="q10Fixed" fixedQ10="3"/>
+            <forwardRate type="HHSigmoidRate" rate="22.0570per_ms" midpoint="88mV" scale="16mV"/>
+            <reverseRate type="HHSigmoidRate" rate="348021.3130per_ms" midpoint="-398mV" scale="-22mV"/>
+        </gate>
+
+        <gate id="h" type="gateHHrates" instances="1">
+            <q10Settings type="q10Fixed" fixedQ10="3"/>
+            <forwardRate type="HHSigmoidRate" rate="25644.9520per_ms" midpoint="-1222mV" scale="-64mV"/>
+            <reverseRate type="HHSigmoidRate" rate="0.00129per_ms" midpoint="-0.645mV" scale="26mV"/>
+        </gate>
+
+    </ionChannel>
+</neuroml>
