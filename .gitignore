@@ -9,4 +9,6 @@ NeuroML2a
 NeuroML2/*.dat
 *.gv
 *.mod
-*.png
+/NeuroML2/LEMS_Test*.xml
+*.pov
+/NeuroML2/*.png
