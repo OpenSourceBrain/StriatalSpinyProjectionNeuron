@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.github.com/NeuroML/NeuroML2/master/Schemas/NeuroML2/NeuroML_v2beta2.xsd"
+    id="CaR">
+
+    <notes>CaR channel - used to test NeuroML 2 implementation of GHK</notes>
+
+
+    <ionChannel id="CaR" type="ionChannelHH" conductance="10pS" species="ca" neuroLexId="sao1846985919">
+
+        <gateHHtauInf id="m" instances="1">
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-10.3mV" scale="6.6mV"/>
+            <timeCourse type="fixedTimeCourse" tau="1.7ms"/>
+        </gateHHtauInf>
+
+        <gateHHtauInf id="h" instances="1">
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-33.3mV" scale="-17mV"/>
+            <timeCourse type="CustomTime"/>
+        </gateHHtauInf>
+
+    </ionChannel>
+
+    <ComponentType name="CustomTime" extends="baseVoltageDepTime">
+        <Constant name="SEC" dimension="time" value="1s"/>
+
+        <Constant name="tau0fixed" dimension="time" value="33.33ms"/>
+
+        <Constant name="tau1v" dimension="voltage" value="-30mV"/>
+        <Constant name="tau1min" dimension="time" value="0.0009s"/>
+        <Constant name="tau1slope" dimension="per_voltage" value="-1.08per_V"/>
+
+        <Constant name="tau2v" dimension="voltage" value="-10mV"/>
+        <Constant name="tau2min" dimension="time" value="0.0092s"/>
+        <Constant name="tau2slope" dimension="per_voltage" value="-0.25per_V"/>
+
+        <Constant name="tau3v" dimension="voltage" value="10mV"/>
+        <Constant name="tau3fixed" dimension="time" value="6.7ms"/>
+
+        <Dynamics>
+
+			<ConditionalDerivedVariable name="t" dimension="time" exposure="t">
+				<Case condition="v .lt. tau1v" value="tau0fixed"/>
+				<Case condition="v .gt. tau1v .and. v .lt. tau2v" value="(v * tau1slope  * SEC) +tau1min"/>
+				<Case condition="v .gt. tau2v .and. v .lt. tau3v" value="(v * tau2slope  * SEC) +tau2min"/>
+				<Case condition="v .lt. tau3v" value="tau3fixed"/>
+			</ConditionalDerivedVariable>
+
+
+<!--
+            <DerivedVariable name="tau0" dimension="time" value="tau0fixed" valueCondition="v .lt. tau1v" valueIfFalse="0"/>
+            <DerivedVariable name="tau1" dimension="time" value="(v * tau1slope  * SEC) +tau1min" valueCondition="v .gt. tau1v .and. v .lt. tau2v" valueIfFalse="0"/>
+            <DerivedVariable name="tau2" dimension="time" value="(v * tau2slope  * SEC) +tau2min" valueCondition="v .gt. tau2v .and. v .lt. tau3v" valueIfFalse="0"/>
+            <DerivedVariable name="tau3" dimension="time" value="tau3fixed" valueCondition="v .gt. tau3v" valueIfFalse="0"/>
+
+            <DerivedVariable name="t" dimension="time" exposure="t" value="tau0 + tau1 + tau2 + tau3"/>-->
+
+        </Dynamics>
+    </ComponentType>
+
+
+</neuroml>
