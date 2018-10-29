@@ -13,14 +13,14 @@
     <ionChannel id="CaT" type="ionChannelHH" conductance="10pS" species="ca">
 	
         <gate id="m" type="gateHHrates" instances="3">
-            <q10Settings type="q10Fixed" fixedQ10="2"/>
+            <q10Settings type="q10Fixed" fixedQ10="1"/>
 	    <forwardRate type="HHExpRate" rate="1per_ms" midpoint="0mV" scale="19mV"/>
-            <reverseRate type="HHSigmoidRate" rate="1.337per_ms" midpoint="-81mV" scale="-7.12mV"/>
+            <reverseRate type="HHExpLinearRate" rate="1.337per_ms" midpoint="-81mV" scale="-7.12mV"/>
         </gate>
 	
         <gate id="h" type="gateHHrates" instances="1">
-            <q10Settings type="q10Fixed" fixedQ10="2"/>
-	    <forwardRate type="HHSigmoidRate" rate="3.842per_ms" midpoint="-113mV" scale="-5.12mV"/>
+            <q10Settings type="q10Fixed" fixedQ10="1"/>
+	    <forwardRate type="HHExpLinearRate" rate="3.842per_ms" midpoint="-113mV" scale="-5.12mV"/>
             <reverseRate type="HHExpRate" rate="0.320per_ms" midpoint="0mV" scale="17mV"/>
         </gate>
 	

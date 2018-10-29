@@ -14,14 +14,14 @@
 	
         <gate id="m" type="gateHHrates" instances="2">
             <q10Settings type="q10Fixed" fixedQ10="3"/>
-	    <forwardRate type="HHSigmoidRate" rate="0.016per_ms" midpoint="0mV" scale="20mV"/>
-            <reverseRate type="HHSigmoidRate" rate="0.0024per_ms" midpoint="0mV" scale="-40mV"/>
+	    <forwardRate type="HHExpRate" rate="0.016per_ms" midpoint="0mV" scale="20mV"/>
+            <reverseRate type="HHExpRate" rate="0.0024per_ms" midpoint="0mV" scale="-40mV"/>
         </gate>
 	
-        <gate id="h" type="gateHHratesTauInf" instances="1">
+        <gate id="h" type="gateHHtauInf" instances="1">
             <q10Settings type="q10Fixed" fixedQ10="3"/>
-            <steadyState type="HHSigmoidVariable" rate="1" midpoint="56mV" scale="-15mV"/>
-            <timeCourse type="SigmoidTime"/>
+	    <timeCourse type="Krp_h_tau_tau"/>
+            <steadyState type="Krp_h_inf_inf"/>
         </gate>
 	
     </ionChannel>
@@ -29,25 +29,22 @@
     <!-- Note this could be brought into Channels.xml as a standard rate -->
 
     <ComponentType name="Krp_h_tau_tau" extends="baseVoltageDepTime">
-        <Constant name="taumin" dimension="time" value="0.5508ms"/>
-        <Constant name="rate" dimension="time" value="2.4ms"/>
+        <Constant name="taumin" dimension="time" value="0.288ms"/>
+	<Constant name="tauVdep" dimension="time" value="4.16ms"/>
         <Constant name="midpoint" dimension="voltage" value="42mV"/>
-        <Constant name="scale" dimension="voltage" value="-3mV"/>
+        <Constant name="scale" dimension="voltage" value="-13mV"/>
         <Dynamics>
-            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+(rate / (1 + exp(0 - (v - midpoint)/scale)))"/>
+            <DerivedVariable name="t" exposure="t" dimension="time" value="taumin + tauVdep / (1 + exp((v + midpoint)/scale))"/>
         </Dynamics>
     </ComponentType>
 
-    <ComponentType name="Krp_h_inf_inf" extends="baseVoltageDepTime">
+    <ComponentType name="Krp_h_inf_inf" extends="baseVoltageDepVariable">
         <Constant name="ss_min" dimension="none" value="0.13"/>
         <Constant name="ss_max" dimension="none" value="0.87"/>
-	<Constant name="rate" dimension="none" value="1"/>
         <Constant name="midpoint" dimension="voltage" value="56mV"/>
         <Constant name="scale" dimension="voltage" value="-14mV"/>
         <Dynamics>
-            <DerivedVariable name="a" dimension="time" value="rate / (1 + exp(0 - (v - midpoint)/scale))"/>
-            <DerivedVariable name="b" dimension="none" value="1 / (1 + exp(0 + (v - midpoint)/scale))"/>
-            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+a*b"/>
+	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v + midpoint) / scale))"/>
         </Dynamics>
     </ComponentType>
 

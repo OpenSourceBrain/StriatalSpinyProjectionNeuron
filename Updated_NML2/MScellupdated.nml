@@ -17,11 +17,15 @@ compatible with Python version 3 soon -->
 
 <!--include href="CaR_channel.nml"/-->
 <include href="CaT_chanREqfact.nml"/>
+<include href="CaL12_chanREqfact.nml"/>
+<include href="CaL13_chanREqfact.nml"/>
+<include href="CaN_chanREqfact.nml"/>
+<include href="CaR_chanREqfact.nml"/>
 <include href="kAf_chanREqfact.nml"/>
 <include href="kAs_chanREqfact.nml"/>
 <!--include href="KDr_chanQfact.nml"/-->
 <include href="kIR_chanRE2.nml"/>
-<!--include href="Krp_chanREqfact.nml"/-->
+<include href="Krp_chanREqfact.nml"/>
 <include href="naFchanOgeqn.nml"/>
 <!--include href="SKchannel.nml"/-->
 
@@ -265,7 +269,8 @@ also, need to apply this to parts of segments, i.e., segments that will be subdi
                 <channelPopulation id="kAsChans" ionChannel="kAs" number="15000" erev="-90mV" ion="k"/>
 		<!--channelPopulation id="kRPChans" ionChannel="kRP" number="20000" erev="-90mV" ion="k"/-->
 		<channelPopulation id="CaTChans" ionChannel="CaT" number="20000" erev="140mV" ion="ca"/>
-                
+                <channelPopulation id="CaL12Chans" ionChannel="CaL12" number="20000" erev="140mV" ion="ca"/>
+		<channelPopulation id="CaL13Chans" ionChannel="CaL13" number="20000" erev="140mV" ion="ca"/>
                 <!--channelDensityNernst id="CaRChansN" ionChannel="CaR" ion="ca" condDensity="200 S_per_m2"/ -->
 
                 <!--<channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="0" ion="ca"/>

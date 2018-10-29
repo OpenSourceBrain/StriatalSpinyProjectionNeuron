@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd"
+	    id="CaR"> 
+	
+    <notes>SPmodel8.13
+    Data tuned to fit Nisenbaum 1996 fig 9D (hinf, 87% inactivating) and 9B (htau)
+    </notes>
+	
+   
+    <ionChannel id="CaR" type="ionChannelHH" conductance="10pS" species="ca">
+	
+        <gate id="m" type="gateHHrates" instances="3">
+            <q10Settings type="q10Fixed" fixedQ10="2"/>
+	    <forwardRate type="HHExpRate" rate="0.240per_ms" midpoint="0mV" scale="28mV"/>
+            <reverseRate type="HHExpLinearRate" rate="1264per_ms" midpoint="-158mV" scale="-13.6mV"/>
+        </gate>
+	
+        <gate id="h" type="gateHHrates" instances="1">
+            <q10Settings type="q10Fixed" fixedQ10="2"/>
+	    <forwardRate type="HHExpLinearRate" rate="1100per_ms" midpoint="-110mV" scale="-17mV"/>
+            <reverseRate type="HHExpRate" rate="0.02per_ms" midpoint="0mV" scale="30mV"/>
+        </gate>
+	
+    </ionChannel>
+
+</neuroml>

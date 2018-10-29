@@ -14,23 +14,23 @@
    
     <ionChannel id="naF" type="ionChannelHH" conductance="10pS" species="na">
 	
-        <gate id="m" type="gateHHratesTauInf" instances="3">
-            <q10Settings type="q10Fixed" fixedQ10="1"/>
+        <gate id="m" type="gateHHtauInf" instances="3">
+            <q10Settings type="q10Fixed" fixedQ10="2.5"/>
             <steadyState type="naF_m_inf_inf"/>
             <timeCourse type="naF_m_tau_tau"/>
         </gate>
 	
-        <gate id="h" type="gateHHratesTauInf" instances="1">
-            <q10Settings type="q10Fixed" fixedQ10="1"/>
-            <steadyState type="naf_h_inf_inf"/>
-            <timeCourse type="naf_h_tau_tau"/>
+        <gate id="h" type="gateHHtauInf" instances="1">
+            <q10Settings type="q10Fixed" fixedQ10="2.5"/>
+            <steadyState type="naF_h_inf_inf"/>
+            <timeCourse type="naF_h_tau_tau"/>
         </gate>
 	
     </ionChannel>
 
     <!-- Note this could be brought into Channels.xml as a standard rate -->
 
-    <ComponentType name="naF_m_tau_tau" extends="baseVoltageDepTime">
+    <!--<ComponentType name="naF_m_tau_tau" extends="baseVoltageDepTime">
         <Constant name="taumin" dimension="time" value="0.1ms"/>
         <Constant name="rate" dimension="time" value="2.1025ms"/>
         <Constant name="midpoint" dimension="voltage" value="62mV"/>
@@ -40,37 +40,45 @@
             <DerivedVariable name="b" dimension="none" value="1 / (1 + exp((v - midpoint)/scale))"/>
             <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+a*b"/>
         </Dynamics>
+    </ComponentType>-->
+
+    <ComponentType name="naF_m_tau_tau" extends="baseVoltageDepTime">
+        <Constant name="taumin" dimension="time" value="0.1ms"/>
+	<Constant name="tauVdep" dimension="time" value="2.1025ms"/>
+        <Constant name="midpoint" dimension="voltage" value="62mV"/>
+        <Constant name="scale" dimension="voltage" value="-8mV"/>
+        <Dynamics>
+            <DerivedVariable name="t" exposure="t" dimension="time" value="taumin + tauVdep / (1 + exp((v + midpoint)/scale))* 1 / (1 + exp((v + midpoint)/-scale))"/>
+        </Dynamics>
     </ComponentType>
 
-    <ComponentType name="naF_m_inf_inf" extends="baseVoltageDepTime">
+    <ComponentType name="naF_m_inf_inf" extends="baseVoltageDepVariable">
         <Constant name="ss_min" dimension="none" value="0"/>
         <Constant name="ss_max" dimension="none" value="1"/>
-	<Constant name="rate" dimension="none" value="1"/>
         <Constant name="midpoint" dimension="voltage" value="25mV"/>
-        <Constant name="scale" dimension="voltage" value="10mV"/>
+        <Constant name="scale" dimension="voltage" value="-10mV"/>
         <Dynamics>
-            <DerivedVariable name="x" dimension="none" exposure = "x" value="ss_min + ss_max / (rate + exp((v + midpoint) / scale))"/>
+            <DerivedVariable name="x" dimension="none" exposure="x" value="ss_min + ss_max / (1 + exp((v + midpoint) / scale))"/>
         </Dynamics>
     </ComponentType>
 
     <ComponentType name="naF_h_tau_tau" extends="baseVoltageDepTime">
         <Constant name="taumin" dimension="time" value="0.5508ms"/>
-        <Constant name="rate" dimension="time" value="2.4ms"/>
+	<Constant name="tauVdep" dimension="time" value="2.4ms"/>
         <Constant name="midpoint" dimension="voltage" value="42mV"/>
-        <Constant name="scale" dimension="voltage" value="-3mV"/>
+        <Constant name="scale" dimension="voltage" value="3mV"/>
         <Dynamics>
-            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin+(rate / (1 + exp(0 - (v - midpoint)/scale)))"/>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin + tauVdep / (1 + exp((v + midpoint)/scale))"/>
         </Dynamics>
     </ComponentType>
 
-    <ComponentType name="naF_h_inf_inf" extends="baseVoltageDepTime">
+    <ComponentType name="naF_h_inf_inf" extends="baseVoltageDepVariable">
         <Constant name="ss_min" dimension="none" value="0"/>
         <Constant name="ss_max" dimension="none" value="1"/>
-	<Constant name="rate" dimension="none" value="1"/>
         <Constant name="midpoint" dimension="voltage" value="60mV"/>
-        <Constant name="scale" dimension="voltage" value="-6mV"/>
+        <Constant name="scale" dimension="voltage" value="6mV"/>
         <Dynamics>
-	    <DerivedVariable name="x" dimension="voltage" value="ss_min + ss_max / (rate + exp((v + midpoint) / scale))"/>
+	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v + midpoint) / scale))"/>
         </Dynamics>
     </ComponentType>
 

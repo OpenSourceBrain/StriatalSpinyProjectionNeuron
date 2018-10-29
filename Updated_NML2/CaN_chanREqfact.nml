@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd"
+	    id="CaN"> 
+	
+    <notes>SPmodel8.13
+    Data tuned to fit Nisenbaum 1996 fig 9D (hinf, 87% inactivating) and 9B (htau)
+    </notes>
+	
+   
+    <ionChannel id="CaN" type="ionChannelHH" conductance="10pS" species="ca">
+	
+        <gate id="m" type="gateHHrates" instances="2">
+            <q10Settings type="q10Fixed" fixedQ10="2"/>
+	    <forwardRate type="HHExpRate" rate="0.304per_ms" midpoint="0mV" scale="14mV"/>
+            <reverseRate type="HHExpLinearRate" rate="0.750per_ms" midpoint="-14.2mV" scale="-10mV"/>
+        </gate>
+	
+        <gate id="h" type="gateHHtauInf" instances="1">
+            <q10Settings type="q10Fixed" fixedQ10="2"/>
+            <timeCourse type="CaN_h_tau_tau"/>
+            <steadyState type="CaN_h_inf_inf"/>
+        </gate>
+	
+    </ionChannel>
+
+    <ComponentType name="CaN_h_tau_tau" extends="baseVoltageDepTime">
+        <Constant name="taumin" dimension="time" value="70ms"/>
+	<Constant name="tauVdep" dimension="time" value="0ms"/>
+        <Constant name="midpoint" dimension="voltage" value="0mV"/>
+        <Constant name="scale" dimension="voltage" value="14mV"/>
+        <Dynamics>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin + tauVdep / (1 + exp((v + midpoint)/scale))"/>
+        </Dynamics>
+    </ComponentType>
+
+    <ComponentType name="CaN_h_inf_inf" extends="baseVoltageDepVariable">
+        <Constant name="ss_min" dimension="none" value="0.79"/>
+        <Constant name="ss_max" dimension="none" value="0.21"/>
+        <Constant name="midpoint" dimension="voltage" value="74.8mV"/>
+        <Constant name="scale" dimension="voltage" value="-6.5mV"/>
+        <Dynamics>
+	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v + midpoint) / scale))"/>
+        </Dynamics>
+    </ComponentType>
+
+</neuroml>
