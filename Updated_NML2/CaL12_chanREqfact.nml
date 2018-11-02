@@ -27,22 +27,22 @@
     </ionChannel>
 
     <ComponentType name="CaL12_h_tau_tau" extends="baseVoltageDepTime">
-        <Constant name="taumin" dimension="time" value="0.0443ms"/>
+        <Constant name="taumin" dimension="time" value="44.3ms"/>
 	<Constant name="tauVdep" dimension="time" value="0ms"/>
         <Constant name="midpoint" dimension="voltage" value="-4mV"/>
-        <Constant name="scale" dimension="voltage" value="7.5mV"/>
+        <Constant name="scale" dimension="voltage" value="-7.5mV"/>
         <Dynamics>
-            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin + tauVdep / (1 + exp((v + midpoint)/scale))"/>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin + tauVdep / (1 + exp((v - midpoint)/scale))"/>
         </Dynamics>
     </ComponentType>
 
     <ComponentType name="CaL12_h_inf_inf" extends="baseVoltageDepVariable">
         <Constant name="ss_min" dimension="none" value="0.83"/>
         <Constant name="ss_max" dimension="none" value="0.17"/>
-        <Constant name="midpoint" dimension="voltage" value="55mV"/>
-        <Constant name="scale" dimension="voltage" value="-8mV"/>
+        <Constant name="midpoint" dimension="voltage" value="-55mV"/>
+        <Constant name="scale" dimension="voltage" value="8mV"/>
         <Dynamics>
-	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v + midpoint) / scale))"/>
+	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v - midpoint) / scale))"/>
         </Dynamics>
     </ComponentType>
 

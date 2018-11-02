@@ -7,19 +7,21 @@
 	
     <notes>SPmodel8.13
     Data tuned to fit Nisenbaum 1996 fig 9D (hinf, 87% inactivating) and 9B (htau)
+
+    Multiplied by qfact (3) in the htau and not in m
     </notes>
 	
    
     <ionChannel id="Krp" type="ionChannelHH" conductance="10pS" species="k">
 	
         <gate id="m" type="gateHHrates" instances="2">
-            <q10Settings type="q10Fixed" fixedQ10="3"/>
-	    <forwardRate type="HHExpRate" rate="0.016per_ms" midpoint="0mV" scale="20mV"/>
-            <reverseRate type="HHExpRate" rate="0.0024per_ms" midpoint="0mV" scale="-40mV"/>
+            <q10Settings type="q10Fixed" fixedQ10="1"/>
+	    <forwardRate type="HHExpRate" rate="16per_s" midpoint="0mV" scale="20mV"/>
+            <reverseRate type="HHExpRate" rate="2.4per_s" midpoint="0mV" scale="-40mV"/>
         </gate>
 	
         <gate id="h" type="gateHHtauInf" instances="1">
-            <q10Settings type="q10Fixed" fixedQ10="3"/>
+            <q10Settings type="q10Fixed" fixedQ10="1"/>
 	    <timeCourse type="Krp_h_tau_tau"/>
             <steadyState type="Krp_h_inf_inf"/>
         </gate>
@@ -29,22 +31,22 @@
     <!-- Note this could be brought into Channels.xml as a standard rate -->
 
     <ComponentType name="Krp_h_tau_tau" extends="baseVoltageDepTime">
-        <Constant name="taumin" dimension="time" value="0.288ms"/>
-	<Constant name="tauVdep" dimension="time" value="4.16ms"/>
-        <Constant name="midpoint" dimension="voltage" value="42mV"/>
-        <Constant name="scale" dimension="voltage" value="-13mV"/>
+        <Constant name="taumin" dimension="time" value="0.864s"/>
+	<Constant name="tauVdep" dimension="time" value="12.48s"/>
+        <Constant name="midpoint" dimension="voltage" value="-42mV"/>
+        <Constant name="scale" dimension="voltage" value="13mV"/>
         <Dynamics>
-            <DerivedVariable name="t" exposure="t" dimension="time" value="taumin + tauVdep / (1 + exp((v + midpoint)/scale))"/>
+            <DerivedVariable name="t" exposure="t" dimension="time" value="taumin + tauVdep / (1 + exp((v - midpoint)/scale))"/>
         </Dynamics>
     </ComponentType>
 
     <ComponentType name="Krp_h_inf_inf" extends="baseVoltageDepVariable">
         <Constant name="ss_min" dimension="none" value="0.13"/>
         <Constant name="ss_max" dimension="none" value="0.87"/>
-        <Constant name="midpoint" dimension="voltage" value="56mV"/>
-        <Constant name="scale" dimension="voltage" value="-14mV"/>
+        <Constant name="midpoint" dimension="voltage" value="-56mV"/>
+        <Constant name="scale" dimension="voltage" value="15mV"/>
         <Dynamics>
-	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v + midpoint) / scale))"/>
+	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v - midpoint) / scale))"/>
         </Dynamics>
     </ComponentType>
 

@@ -30,19 +30,19 @@
         <Constant name="taumin" dimension="time" value="70ms"/>
 	<Constant name="tauVdep" dimension="time" value="0ms"/>
         <Constant name="midpoint" dimension="voltage" value="0mV"/>
-        <Constant name="scale" dimension="voltage" value="14mV"/>
+        <Constant name="scale" dimension="voltage" value="-14mV"/>
         <Dynamics>
-            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin + tauVdep / (1 + exp((v + midpoint)/scale))"/>
+            <DerivedVariable name="t" dimension="time" exposure="t" value="taumin + tauVdep / (1 + exp((v - midpoint)/scale))"/>
         </Dynamics>
     </ComponentType>
 
     <ComponentType name="CaN_h_inf_inf" extends="baseVoltageDepVariable">
         <Constant name="ss_min" dimension="none" value="0.79"/>
         <Constant name="ss_max" dimension="none" value="0.21"/>
-        <Constant name="midpoint" dimension="voltage" value="74.8mV"/>
-        <Constant name="scale" dimension="voltage" value="-6.5mV"/>
+        <Constant name="midpoint" dimension="voltage" value="-74.8mV"/>
+        <Constant name="scale" dimension="voltage" value="6.5mV"/>
         <Dynamics>
-	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v + midpoint) / scale))"/>
+	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v - midpoint) / scale))"/>
         </Dynamics>
     </ComponentType>
 
