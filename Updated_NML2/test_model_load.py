@@ -17,7 +17,7 @@ VMIN = -120e-3
 VMAX = 50e-3
 CAMIN = 0.01e-3
 CAMAX = 40e-3
-channelList = ('CaT', 'kAf', 'kAs', 'kIR', 'naF', 'Krp', 'CaL12', 'CaL13', 'CaN', 'CaR')
+channelList = ('CaL12','CaL13','CaN','CaR','CaT','kAf','kAs','kIR','Krp','naF')
 
 # Graph the curves
 for chan in channelList:

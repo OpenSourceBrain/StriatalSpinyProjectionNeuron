@@ -15,7 +15,6 @@ be amenable with the latest version of the MOOSE simulator. The current version 
 in the MOOSE simulator is only amenable to Python version 2, but the developers hope to make this
 compatible with Python version 3 soon -->
 
-<!--include href="CaR_channel.nml"/-->
 <include href="CaT_chanREqfact.nml"/>
 <include href="CaL12_chanREqfact.nml"/>
 <include href="CaL13_chanREqfact.nml"/>
@@ -23,13 +22,12 @@ compatible with Python version 3 soon -->
 <include href="CaR_chanREqfact.nml"/>
 <include href="kAf_chanREqfact.nml"/>
 <include href="kAs_chanREqfact.nml"/>
-<!--include href="KDr_chanQfact.nml"/-->
 <include href="kIR_chanRE2.nml"/>
 <include href="Krp_chanREqfact.nml"/>
 <include href="naFchanOgeqn.nml"/>
+<include href="pas.channel.nml"/>
+<!--include href="CaPool.nml"/-->
 <!--include href="SKchannel.nml"/-->
-
-<ionChannel id="passive" type="ionChannelPassive" conductance="10pS"/>
 
 <cell id='MScell'>
 
@@ -261,17 +259,50 @@ also, need to apply this to parts of segments, i.e., segments that will be subdi
             <membraneProperties>
 
                 <!-- Values calculated from original soma G * SA / single channel cond. -->
-                <channelPopulation id="leak" ionChannel="passive" number="29" erev="-60mV" ion="non_specific"/> <!-- Number should be 28.9!! -->
-                <!--channelPopulation id="kDrChans" ionChannel="KDr" number="884" erev="-90mV"  ion="k"/-->
-                <channelPopulation id="kIRChans" ionChannel="kIR" number="583" erev="-90mV" ion="k"/>
-                <channelPopulation id="naFChans" ionChannel="naF" number="723000" erev="50mV" ion="na"/>
-                <channelPopulation id="kAfChans" ionChannel="kAf" number="64000" erev="-90mV" ion="k"/>
-                <channelPopulation id="kAsChans" ionChannel="kAs" number="15000" erev="-90mV" ion="k"/>
-		<channelPopulation id="KrpChans" ionChannel="Krp" number="20000" erev="-90mV" ion="k"/>
-		<channelPopulation id="CaTChans" ionChannel="CaT" number="20000" erev="140mV" ion="ca"/>
-		<channelPopulation id="CaRChans" ionChannel="CaR" number="20000" erev="140mV" ion="ca"/>
-                <channelPopulation id="CaL12Chans" ionChannel="CaL12" number="20000" erev="140mV" ion="ca"/>
-		<channelPopulation id="CaL13Chans" ionChannel="CaL13" number="20000" erev="140mV" ion="ca"/>
+		<!-- We are including the leak channel here because NeuroML is built to be utilized by any simulation environment, and currently the most popular simulators are NEURON, GENESIS, and MOOSE. In NEURON, the passive channel contains the membrane resistance, and so the way in which NML is defined one must create a passive channel to be able to declare membrane resistances for each compartment that will be loaded in. Thus why we are including a passive channel declaration in the NML as this will be needed for loading into MOOSE -->
+
+		<channelDensity ionChannel="pas" id="pas_all"  condDensity = "0.000142857 S_per_m2" ion="non_specific" erev="-85 mV"/>
+
+                <channelDensity id="kIRChans" ionChannel="kIR" condDensity = "12.7875 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+		<channelDensity id="kIRChans" ionChannel="kIR" condDensity = "12.7875 S_per_m2" erev="-90mV" ion="k" segmentGroup="middle"/>
+		<channelDensity id="kIRChans" ionChannel="kIR" condDensity = "12.7875 S_per_m2" erev="-90mV" ion="k" segmentGroup="distal"/>
+
+		<channelDensity id="naFChans" ionChannel="naF" condDensity = "229400 S_per_m2" erev="50mV" ion="na" segmentGroup="proximal"/>
+		<channelDensity id="naFChans" ionChannel="naF" condDensity = "4080.6 S_per_m2" erev="50mV" ion="na" segmentGroup="middle"/>
+		<channelDensity id="naFChans" ionChannel="naF" condDensity = "705.49 S_per_m2" erev="50mV" ion="na" segmentGroup="distal"/>
+
+		<channelDensity id="kAfChans" ionChannel="kAf" condDensity = "1430.85 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+		<channelDensity id="kAfChans" ionChannel="kAf" condDensity = "406.796 S_per_m2" erev="-90mV" ion="k" segmentGroup="middle"/>
+		<channelDensity id="kAfChans" ionChannel="kAf" condDensity = "91.140 S_per_m2" erev="-90mV" ion="k" segmentGroup="distal"/>
+
+		<channelDensity id="kAsChans" ionChannel="kAs" condDensity = "13.95 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+		<channelDensity id="kAsChans" ionChannel="kAs" condDensity = "1419.54 S_per_m2" erev="-90mV" ion="k" segmentGroup="middle"/>
+		<channelDensity id="kAsChans" ionChannel="kAs" condDensity = "62.524 S_per_m2" erev="-90mV" ion="k" segmentGroup="distal"/>
+
+		<channelDensity id="KrpChans" ionChannel="Krp" condDensity = "0.0266 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+		<channelDensity id="KrpChans" ionChannel="Krp" condDensity = "0.0740 S_per_m2" erev="-90mV" ion="k" segmentGroup="middle"/>
+		<channelDensity id="KrpChans" ionChannel="Krp" condDensity = "62.524 S_per_m2" erev="-90mV" ion="k" segmentGroup="distal"/>
+
+		<channelDensity id="CaTChans" ionChannel="CaT" condDensity = "0 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
+		<channelDensity id="CaTChans" ionChannel="CaT" condDensity = "0.000002853 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
+		<channelDensity id="CaTChans" ionChannel="CaT" condDensity = "0.000001434 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
+
+		<channelDensity id="CaNChans" ionChannel="CaN" condDensity = "0.000002523 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
+		<channelDensity id="CaNChans" ionChannel="CaN" condDensity = "0 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
+		<channelDensity id="CaNChans" ionChannel="CaN" condDensity = "0 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
+
+		<channelDensity id="CaRChans" ionChannel="CaR" condDensity = "0.000003722 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
+		<channelDensity id="CaRChans" ionChannel="CaR" condDensity = "0.000001754 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
+		<channelDensity id="CaRChans" ionChannel="CaR" condDensity = "0.000016292 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
+		
+		<channelDensity id="CaL12Chans" ionChannel="CaL12" condDensity = "0.000034954 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
+		<channelDensity id="CaL12Chans" ionChannel="CaL12" condDensity = "0.000002591 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
+		<channelDensity id="CaL12Chans" ionChannel="CaL12" condDensity = "0.000002075 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
+
+                <channelDensity id="CaL13Chans" ionChannel="CaL13" condDensity = "0.000005899 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
+		<channelDensity id="CaL13Chans" ionChannel="CaL13" condDensity = "0.000001404 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
+		<channelDensity id="CaL13Chans" ionChannel="CaL13" condDensity = "0.000000734 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
+
                 <!--channelDensityNernst id="CaRChansN" ionChannel="CaR" ion="ca" condDensity="200 S_per_m2"/ -->
 
                 <!--<channelPopulationNernst id="CaRChansN" ionChannel="CaR" number="0" ion="ca"/>
@@ -281,11 +312,6 @@ also, need to apply this to parts of segments, i.e., segments that will be subdi
                 <spikeThresh value="0 mV"/> <!--PG: Put it back in, as it crashed otherwise...-->
                 
                 <specificCapacitance value="0.03 F_per_m2"/> <!--compensate for no spines -->
-
-                <!--Also, can we just specify reversal potential for an ion and not a channel population - reduces mistakes
-                PG: agreed, but not possible just yet, working on it...
-                <reversalPotential species="na" value="50mV"/>
-                <reversalPotential species="k" value="-90mV"/>-->  
 
                 <initMembPotential value="-85mV"/>
             </membraneProperties>
