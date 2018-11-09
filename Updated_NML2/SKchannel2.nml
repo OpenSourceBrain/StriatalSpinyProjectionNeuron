@@ -5,46 +5,6 @@
 	 xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd"
 	 id="SKCa"> 
 
-    <ionChannel id = "SKCa" conductance = "10pS" type = "ionChannelHH" species = "k">
-        <notes>SK type of Calcium dependent K channel - no voltage dependence</notes>
-
-        <gate id = "z" type = "gateHHtauInf" instances = "1">
-            <q10Settings type="q10ExpTemp" q10Factor = "1" experimentalTemp = "20.0 degC"/>-->
-	    <!-- if q10Factor > 1, then time constant will be divided by q10 for every 10 degrees -->
-            <timeCourse type="fixedTimeCourse"/>
-            <steadyState type="SKCa_z_inf_inf"/>
-        </gate>
-
-    </ionChannel>
-
-
-    <ComponentType name = "fixedTimeCourse" extends = "baseVoltageConcDepTime">
-        <Constant name="tau" dimension="time" value="4.9ms"/>
-        <Behavior>
-            <DerivedVariable name = "t" exposure = "t" dimension = "time" value = "tau"/>
-        </Behavior>
-    </ComponentType>
-
-    <ComponentType name = "SKCa_z_inf_inf" extends = "baseVoltageConcDepVariable">
-        <Constant name="midpoint" dimension="concentration" value="0.57e-3 mM"/>
-        <Constant name="HillCoef" dimension="none" value="5.2"/>
-	<Constant name="CONC_SCALE" dimension="concentration" value="1 mM"/>
-        <Behavior>
-	    <DerivedVariable name="ca_conc" dimension="none" value="CaPool / CONC_SCALE"/>
-            <DerivedVariable name = "x" exposure = "x" dimension = "none" value = "ca_conc^HillCoef / (ca_conc^HillCoef + midpoint^HillCoef)"/>
-        </Behavior>
-    </ComponentType>
-
-	
-	   	 
-</neuroml>
-
-
-
-
-
-<!--
-
    <ionChannel id="SKCa" conductance="10pS" type="ionChannelHH" species="k">
 
         <notes>Small-conductance, Ca2+ activated K+ current
@@ -77,8 +37,6 @@ Comment from original mod file:
             </rdf:RDF>
         </annotation>
 
-
-
         <gate id="z" type="gateHHtauInf" instances="1">
             <timeCourse type="SK_z_tau_tau"/>
             <steadyState type="SK_z_inf_inf"/>
@@ -87,29 +45,63 @@ Comment from original mod file:
     </ionChannel>
 
     <ComponentType name="SK_z_tau_tau" extends="baseVoltageConcDepTime">
-        <Constant name="TIME_SCALE" dimension="time" value="1 ms"/>
-        <Constant name="VOLT_SCALE" dimension="voltage" value="1 mV"/>
-        <Constant name="CONC_SCALE" dimension="concentration" value="1 mol_per_cm3"/>
-
+        <Constant name="CONC_SCALE" dimension="concentration" value="1 mM"/>
+	<Constant name="tau" dimension="time" value="4.9 ms"/>
         <Dynamics>
-            <DerivedVariable name="V" dimension="none" value="v / VOLT_SCALE"/>
             <DerivedVariable name="ca_conc" dimension="none" value="CaPool / CONC_SCALE"/>
-            <DerivedVariable name="t" exposure="t" dimension="time" value="(1) * TIME_SCALE"/>
+            <DerivedVariable name="t" exposure="t" dimension="time" value="tau"/>
         </Dynamics>
 
     </ComponentType>
 
     <ComponentType name="SK_z_inf_inf" extends="baseVoltageConcDepVariable">
-        <Constant name="TIME_SCALE" dimension="time" value="1 ms"/>
-        <Constant name="VOLT_SCALE" dimension="voltage" value="1 mV"/>
-        <Constant name="CONC_SCALE" dimension="concentration" value="1 mol_per_cm3"/>
+	<Constant name="midpoint" dimension="concentration" value="0.57e-3 mM"/>
+        <Constant name="HillCoef" dimension="none" value="5.2"/>
+        <Constant name="CONC_SCALE" dimension="concentration" value="1 mM"/>
 
         <Dynamics>
-            <DerivedVariable name="V" dimension="none" value="v / VOLT_SCALE"/>
             <DerivedVariable name="ca_conc" dimension="none" value="CaPool / CONC_SCALE"/>
-            <DerivedVariable name="x" exposure="x" dimension="none" value="1/(1+(4.3e-10/ca_conc)**4.8)"/>
+            <DerivedVariable name = "x" exposure = "x" dimension = "none" value = "ca_conc**HillCoef / (ca_conc**HillCoef + midpoint**HillCoef)"/>
         </Dynamics>
 
+    </ComponentType>
+
+	
+	   	 
+</neuroml>
+
+
+
+
+
+<!--
+    <ionChannel id = "SKCa" conductance = "10pS" type = "ionChannelHH" species = "k">
+        <notes>SK type of Calcium dependent K channel - no voltage dependence</notes>
+
+        <gate id = "z" type = "gateHHtauInf" instances = "1">
+            <q10Settings type="q10ExpTemp" q10Factor = "1" experimentalTemp = "20.0 degC"/>-->
+	    <!-- if q10Factor > 1, then time constant will be divided by q10 for every 10 degrees -->
+            <!--timeCourse type="fixedTimeCourse" tau="4.9ms"/-->
+<!--
+	    <timeCourse type="SKCa_z_tau_tau"/>
+            <steadyState type="SKCa_z_inf_inf"/>
+        </gate>
+    </ionChannel>
+
+
+    <ComponentType name = "SKCa_z_tau_tau" extends = "baseVoltageConcDepTime">
+        <Constant name="tau" dimension="time" value="4.9ms"/>
+        <Behavior>
+            <DerivedVariable name = "t" exposure = "t" dimension = "time" value = "tau"/>
+        </Behavior>
+    </ComponentType>
+
+    <ComponentType name = "SKCa_z_inf_inf" extends = "baseVoltageConcDepVariable">
+        <Constant name="midpoint" dimension="concentration" value="0.57e-3 mM"/>
+        <Constant name="HillCoef" dimension="none" value="5.2"/>
+        <Behavior>
+            <DerivedVariable name = "x" exposure = "x" dimension = "none" value = "caConc^HillCoef / (caConc^HillCoef + midpoint^HillCoef)"/>
+        </Behavior>
     </ComponentType>
 
 -->
