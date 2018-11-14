@@ -13,7 +13,11 @@ allow the morphology to be visualized (sort of)
 This is an updated version of the model that will when finished contain updated data and will
 be amenable with the latest version of the MOOSE simulator. The current version of the NML2 reader
 in the MOOSE simulator is only amenable to Python version 2, but the developers hope to make this
-compatible with Python version 3 soon -->
+compatible with Python version 3 soon
+
+This version also contains an update to the morphology such that it matches the diameters and tapering of MScelltaperspines.p that is currently on github (last updated 06/01/18).
+
+This will first be tested without calcium channels, and then calcium channels will be added over time once the MOOSE developers figure out how to implement the CaPool appropriately as defined from NML2 -->
 
 <!--
 <include href="CaPool.nml"/>
@@ -36,8 +40,8 @@ compatible with Python version 3 soon -->
         <morphology id="MScell_Morphology">
 
             <segment id ="0" name="Soma">
-                <proximal x="-8" y="0" z="0" diameter="16"/>
-                <distal x="8" y="0" z="0" diameter="16"/>
+                <proximal x="0" y="0" z="0" diameter="22.6274"/>
+                <distal x="11.3137" y="0" z="0" diameter="22.6274"/>
             </segment>
 	 
             <segment id ="1" name="primdend1">
