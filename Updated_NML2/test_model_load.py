@@ -9,7 +9,8 @@ import util as u
 plt.ion()
 
 # Read the NML model into MOOSE
-filename = 'MScellupdated.nml'
+#filename = 'MScellupdated.nml'
+filename = 'MScellupdated_SecDendRE.nml'
 reader = moose.mooseReadNML2(filename)
 
 # Define the variables needed to view the undelying curves for the channel kinetics
@@ -55,7 +56,7 @@ MS_soma_Iex = MS_tables[0][1]
 
 # Plot the simulation
 simTime = 350e-3
-simdt = 2.5e-5
+simdt = 10e-6
 plotdt = 0.2e-3
 for i in range(10):
     moose.setClock(i, simdt)

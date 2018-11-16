@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta5.xsd">
+
+    <ion name="ca" charge="2" role="SignallingSubstance"/>
+
+
+    <ion_concentration name="CaPool">
+
+        <ion_species name="ca"/>
+
+        <decaying_pool_model restingConc="5e-5 mM" decayConstant="10.0 ms">
+	    <pool_volume_info shell_thickness = "8.4e-6 cm"/>
+        </decaying_pool_model>
+
+    </ion_concentration>
+
+</neuroml>
+
