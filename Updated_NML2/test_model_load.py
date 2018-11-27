@@ -10,10 +10,11 @@ plt.ion()
 
 # Read the NML model into MOOSE
 #filename = 'MScellupdated.nml'
-filename = 'MScellupdated_SecDendRE.nml'
+#filename = 'MScellupdated_SecDendRE.nml'
+filename = 'MScellupdated_primDend.nml'
 reader = moose.mooseReadNML2(filename)
 
-# Define the variables needed to view the undelying curves for the channel kinetics
+# Define the variables needed to view the underlying curves for the channel kinetics
 plot_powers = True
 VMIN = -120e-3
 VMAX = 50e-3
@@ -70,4 +71,5 @@ moose.start(simTime)
 t = np.linspace(0,simTime,len(MS_soma_Vm.vector))
 plt.figure()
 plt.plot(t,MS_soma_Vm.vector * 1e3, 'r',label = 'MS_soma_Vm (mV)')
+plt.plot(t,MS_soma_Iex.vector * 1e9, 'r',label = 'MS_soma_Iex (nA)')
 plt.legend()
