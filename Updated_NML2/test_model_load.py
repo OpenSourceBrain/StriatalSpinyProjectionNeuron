@@ -10,8 +10,8 @@ plt.ion()
 
 # Read the NML model into MOOSE
 #filename = 'MScellupdated.nml'
-#filename = 'MScellupdated_SecDendRE.nml'
-filename = 'MScellupdated_primDend.nml'
+filename = 'MScellupdated_SecDendRE.nml'
+#filename = 'MScellupdated_primDend.nml'
 reader = moose.mooseReadNML2(filename)
 
 # Define the variables needed to view the underlying curves for the channel kinetics
@@ -57,8 +57,8 @@ MS_soma_Iex = MS_tables[0][1]
 
 # Plot the simulation
 simTime = 350e-3
-simdt = 10e-6
-plotdt = 0.2e-3
+simdt = 1e-6
+plotdt = 0.1e-3
 for i in range(10):
     moose.setClock(i, simdt)
 
@@ -70,6 +70,6 @@ moose.reinit()
 moose.start(simTime)
 t = np.linspace(0,simTime,len(MS_soma_Vm.vector))
 plt.figure()
-plt.plot(t,MS_soma_Vm.vector * 1e3, 'r',label = 'MS_soma_Vm (mV)')
-plt.plot(t,MS_soma_Iex.vector * 1e9, 'r',label = 'MS_soma_Iex (nA)')
+plt.plot(t,MS_soma_Vm.vector, 'r',label = 'MS_soma_Vm (mV)')
+plt.plot(t,MS_soma_Iex.vector, 'r',label = 'MS_soma_Iex (nA)')
 plt.legend()

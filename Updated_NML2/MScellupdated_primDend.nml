@@ -13,7 +13,9 @@ allow the morphology to be visualized (sort of)
 This is an updated version of the model that will when finished contain updated data and will
 be amenable with the latest version of the MOOSE simulator. The current version of the NML2 reader
 in the MOOSE simulator is only amenable to Python version 2, but the developers hope to make this
-compatible with Python version 3 soon -->
+compatible with Python version 3 soon 
+
+11/28/18 Update: This NML2 model now matches the output of the D1 Neuron currently in moose_nerp (using the 5 non Calcium dep/perm channels)! It also appears that the relative coordinates do matter in regards to the distances. Will most likely need to evaluate and change this in the full model. -->
 
 <!--
 <include href="CaPool.nml"/>
@@ -35,114 +37,12 @@ compatible with Python version 3 soon -->
 
         <morphology id="MScell_Morphology">
 
-<!--
-            <segment id ="0" name="Soma">
-                <proximal x="0" y="0" z="0" diameter="14"/>
-                <distal x="14" y="0" z="0" diameter="14"/>
-            </segment>
-	 
-            <segment id ="1" name="primdend1">
-                <parent segment="0"/>
-                <proximal x="9" y="5" z="0" diameter="1.7"/>
-                <distal x="18" y="9.5" z="0" diameter="1.7"/>
-            </segment>
-	 
-            <segment id ="2" name="primdend2">
-                <parent segment="0"/>
-                <proximal x="9" y="-5" z="0" diameter="1.7"/>
-                <distal x="18" y="-9.5" z="0" diameter="1.7"/>
-            </segment>
-	 
-            <segment id ="3" name="primdend3">
-                <parent segment="0"/>
-                <proximal x="4.5" y="9" z="0" diameter="1.7"/>
-                <distal x="9" y="18" z="0" diameter="1.7"/>
-            </segment>
-	 
-            <segment id ="4" name="primdend4">
-                <parent segment="0"/>
-                <proximal x="-9" y="-9" z="0" diameter="1.7"/>
-                <distal x="-4.5" y="-18" z="0" diameter="1.7"/>
-            </segment>
-
-            <segment id ="5" name="secdend11">
-                <parent segment="1"/>
-                <proximal x="18" y="4.4" z="0" diameter="1.4"/>
-                <distal x="30" y="4.4" z="0" diameter="1.4"/>
-            </segment>
-	 
-            <segment id ="6" name="secdend12">
-                <parent segment="1"/>
-                <proximal x="19" y="5.6" z="0" diameter="1.4"/>
-                <distal x="30" y="11.6" z="0" diameter="1.4"/>
-            </segment>
-	 
-            <segment id ="7" name="secdend21">
-                <parent segment="2"/>
-                <proximal x="18" y="-4.4" z="0" diameter="1.4"/>
-                <distal x="30" y="-4.4" z="0" diameter="1.4"/>
-            </segment>
-	 
-            <segment id ="8" name="secdend22">
-                <parent segment="2"/>
-                <proximal x="19" y="-5.6" z="0" diameter="1.4"/>
-                <distal x="30" y="-11.6" z="0" diameter="1.4"/>
-            </segment>
-	 
-            <segment id ="9" name="secdend31">
-                <parent segment="3"/>
-                <proximal x="-30" y="4.4" z="0" diameter="1.4"/>
-                <distal x="-30" y="16.4" z="0" diameter="1.4"/>
-            </segment>
-	 
-            <segment id ="10" name="secdend32">
-                <parent segment="3"/>
-                <proximal x="-35" y="5.6" z="0" diameter="1.4"/>
-                <distal x="-30" y="16.6" z="0" diameter="1.4"/>
-            </segment>
-	 
-            <segment id ="11" name="secdend41">
-                <parent segment="4"/>
-                <proximal x="-18" y="-4.4" z="0" diameter="1.4"/>
-                <distal x="-18" y="-16.4" z="0" diameter="1.4"/>
-            </segment>
-	 
-            <segment id ="12" name="secdend42">
-                <parent segment="4"/>
-                <proximal x="-35" y="-5.6" z="0" diameter="1.4"/>
-                <distal x="-30" y="-16.6" z="0" diameter="1.4"/>
-            </segment>
---> 
 
             <segment id ="0" name="Soma">
                 <proximal x="0" y="0" z="0" diameter="16"/>
                 <distal x="16" y="0" z="0" diameter="16"/>
             </segment>
-<!--	 
-            <segment id ="1" name="primdend1">
-                <parent segment="0"/>
-                <proximal x="16" y="0" z="0" diameter="2.5"/>
-                <distal x="9" y="4.5" z="0" diameter="2.5"/>
-            </segment>
-	 
-            <segment id ="2" name="primdend2">
-                <parent segment="0"/>
-                <proximal x="16" y="0" z="0" diameter="2.5"/>
-                <distal x="9" y="-4.5" z="0" diameter="2.5"/>
-            </segment>
-	 
-            <segment id ="3" name="primdend3">
-                <parent segment="0"/>
-                <proximal x="16" y="0" z="0" diameter="2.5"/>
-                <distal x="4.5" y="9" z="0" diameter="2.5"/>
-            </segment>
 
-            <segment id ="4" name="primdend4">
-                <parent segment="0"/>
-                <proximal x="16" y="0" z="0" diameter="2.5"/>
-                <distal x="4.5" y="-9" z="0" diameter="2.5"/>
-            </segment>
--->
             <segment id ="1" name="primdend1">
                 <parent segment="0"/>
                 <proximal x="16" y="0" z="0" diameter="2.5"/>
@@ -190,6 +90,7 @@ also, need to apply this to parts of segments, i.e., segments that will be subdi
                 <!-- Values calculated from original soma G * SA / single channel cond. -->
 		<!-- We are including the leak channel here because NeuroML is built to be utilized by any simulation environment, and currently the most popular simulators are NEURON, GENESIS, and MOOSE. In NEURON, the passive channel contains the membrane resistance, and so the way in which NML is defined one must create a passive channel to be able to declare membrane resistances for each compartment that will be loaded in. Thus why we are including a passive channel declaration in the NML as this will be needed for loading into MOOSE -->
 
+
 		<channelDensity ionChannel="pas" id="pas_all"  condDensity = "0.357143 S_per_m2" ion="non_specific" erev="-50 mV" segmentGroup="proximal"/>
 
                 <channelDensity id="kIRChans" ionChannel="kIR" condDensity = "12.7875 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
@@ -204,29 +105,34 @@ also, need to apply this to parts of segments, i.e., segments that will be subdi
 
 
 <!--
+		<channelDensity ionChannel="pas" id="pas_all"  condDensity = "0.357143 S_per_m2" ion="non_specific" erev="-50 mV" segmentGroup="proximal"/>
+
+                <channelDensity id="kIRChans" ionChannel="kIR" condDensity = "0 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+
+		<channelDensity id="naFChans" ionChannel="naF" condDensity = "0 S_per_m2" erev="50mV" ion="na" segmentGroup="proximal"/>
+
+		<channelDensity id="kAfChans" ionChannel="kAf" condDensity = "0 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+
+		<channelDensity id="kAsChans" ionChannel="kAs" condDensity = "0 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+
+		<channelDensity id="KrpChans" ionChannel="Krp" condDensity = "0 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+-->
+
+<!--
+
+Calcium channels that have yet to be implemented:
+
 		<channelDensity id="CaTChans" ionChannel="CaT" condDensity = "0 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
-		<channelDensity id="CaTChans" ionChannel="CaT" condDensity = "0.000002853 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
-		<channelDensity id="CaTChans" ionChannel="CaT" condDensity = "0.000001434 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
 
 		<channelDensity id="CaNChans" ionChannel="CaN" condDensity = "0.000002523 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
-		<channelDensity id="CaNChans" ionChannel="CaN" condDensity = "0 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
-		<channelDensity id="CaNChans" ionChannel="CaN" condDensity = "0 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
 
 		<channelDensity id="CaRChans" ionChannel="CaR" condDensity = "0.000003722 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
-		<channelDensity id="CaRChans" ionChannel="CaR" condDensity = "0.000001754 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
-		<channelDensity id="CaRChans" ionChannel="CaR" condDensity = "0.000016292 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
 		
 		<channelDensity id="CaL12Chans" ionChannel="CaL12" condDensity = "0.000034954 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
-		<channelDensity id="CaL12Chans" ionChannel="CaL12" condDensity = "0.000002591 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
-		<channelDensity id="CaL12Chans" ionChannel="CaL12" condDensity = "0.000002075 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
 
                 <channelDensity id="CaL13Chans" ionChannel="CaL13" condDensity = "0.000005899 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
-		<channelDensity id="CaL13Chans" ionChannel="CaL13" condDensity = "0.000001404 S_per_m2" erev="140mV" ion="ca" segmentGroup="middle"/>
-		<channelDensity id="CaL13Chans" ionChannel="CaL13" condDensity = "0.000000734 S_per_m2" erev="140mV" ion="ca" segmentGroup="distal"/>
 
                 <channelDensity id="SKCaChans" ionChannel="SKCa" condDensity = "1.4664 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
-		<channelDensity id="SKCaChans" ionChannel="SKCa" condDensity = "1.4664 S_per_m2" erev="-90mV" ion="k" segmentGroup="middle"/>
-		<channelDensity id="SKCaChans" ionChannel="SKCa" condDensity = "1.4664 S_per_m2" erev="-90mV" ion="k" segmentGroup="distal"/>
 
 -->
 
