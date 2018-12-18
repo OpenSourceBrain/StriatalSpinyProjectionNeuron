@@ -18,14 +18,17 @@ compatible with Python version 3 soon
 11/28/18 Update: This NML2 model now matches the output of the D1 Neuron currently in moose_nerp (using the 5 non Calcium dep/perm channels)! It also appears that the relative coordinates do matter in regards to the distances. Will most likely need to evaluate and change this in the full model. -->
 
 <!--
-<include href="CaPool.nml"/>
-<include href="SKchannel2.nml"/>
+
 <include href="CaT_chanREqfact.nml"/>
 <include href="CaL12_chanREqfact.nml"/>
 <include href="CaL13_chanREqfact.nml"/>
 <include href="CaN_chanREqfact.nml"/>
 <include href="CaR_chanREqfact.nml"/>
+<include href="CaPool.nml"/>
+<include href="SKchannel2.nml"/>
+
 -->
+
 <include href="kAf_chanREqfact.nml"/>
 <include href="kAs_chanREqfact.nml"/>
 <include href="kIR_chanRE2.nml"/>
@@ -103,6 +106,7 @@ also, need to apply this to parts of segments, i.e., segments that will be subdi
 
 		<channelDensity id="KrpChans" ionChannel="Krp" condDensity = "0.0266 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
 
+                <channelDensity id="SKCaChans" ionChannel="SKCa" condDensity = "1.4664 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
 
 <!--
 		<channelDensity ionChannel="pas" id="pas_all"  condDensity = "0.357143 S_per_m2" ion="non_specific" erev="-50 mV" segmentGroup="proximal"/>
@@ -132,7 +136,7 @@ Calcium channels that have yet to be implemented:
 
                 <channelDensity id="CaL13Chans" ionChannel="CaL13" condDensity = "0.000005899 S_per_m2" erev="140mV" ion="ca" segmentGroup="proximal"/>
 
-                <channelDensity id="SKCaChans" ionChannel="SKCa" condDensity = "1.4664 S_per_m2" erev="-90mV" ion="k" segmentGroup="proximal"/>
+
 
 -->
 
@@ -150,9 +154,10 @@ Calcium channels that have yet to be implemented:
             </membraneProperties>
 
             <intracellularProperties>
-
+		<!--<species segmentGroup="proximal" id="ca" ion="ca" concentrationModel="CaPool" initialConcentration="50e-6 mol_per_m3" initialExtConcentration="2 mol_per_m3"/>-->
+		<!--<species segmentGroup="proximal" id="ca" ion="ca" concentrationModel="CaDynamics" initialConcentration="50e-6 mol_per_m3" initialExtConcentration="2 mol_per_m3"/>-->
                 <resistivity value="4.0 ohm_m"/>  <!-- Used for specific axial resistance -->
-	
+
             </intracellularProperties>
 	
         </biophysicalProperties>

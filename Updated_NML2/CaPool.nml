@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 ../Schemas/NeuroML2/NeuroML_v2beta4.xsd" 
          id="CaPool">
 
-    <decayingPoolConcentrationModel id="CaPool" restingConc="5e-5 mM" decayConstant="10.0 ms" shellThickness="8.4E-6 cm" ion="ca"/>
+    <decayingPoolConcentrationModel id="CaPool" restingConc="5e-5 mM" decayConstant="20.0 ms" shellThickness=".1E-6 m" ion="ca"/>
 
 </neuroml>
-
+ 
