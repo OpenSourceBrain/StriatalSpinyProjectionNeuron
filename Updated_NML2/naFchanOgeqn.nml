@@ -15,13 +15,13 @@
     <ionChannel id="naF" type="ionChannelHH" conductance="10pS" species="na">
 	
         <gate id="m" type="gateHHtauInf" instances="3">
-            <q10Settings type="q10Fixed" fixedQ10="2.5"/>
+            <q10Settings type="q10Fixed" fixedQ10="1"/>
             <steadyState type="naF_m_inf_inf"/>
             <timeCourse type="naF_m_tau_tau"/>
         </gate>
 	
         <gate id="h" type="gateHHtauInf" instances="1">
-            <q10Settings type="q10Fixed" fixedQ10="2.5"/>
+            <q10Settings type="q10Fixed" fixedQ10="1"/>
             <steadyState type="naF_h_inf_inf"/>
             <timeCourse type="naF_h_tau_tau"/>
         </gate>
@@ -43,8 +43,8 @@
     </ComponentType>-->
 
     <ComponentType name="naF_m_tau_tau" extends="baseVoltageDepTime">
-        <Constant name="taumin" dimension="time" value="0.1ms"/>
-	<Constant name="tauVdep" dimension="time" value="2.1025ms"/>
+        <Constant name="taumin" dimension="time" value="0.04ms"/>
+	<Constant name="tauVdep" dimension="time" value="0.841ms"/>
         <Constant name="midpoint" dimension="voltage" value="62mV"/>
         <Constant name="scale" dimension="voltage" value="-8mV"/>
         <Dynamics>
@@ -63,8 +63,8 @@
     </ComponentType>
 
     <ComponentType name="naF_h_tau_tau" extends="baseVoltageDepTime">
-        <Constant name="taumin" dimension="time" value="0.5508ms"/>
-	<Constant name="tauVdep" dimension="time" value="2.4ms"/>
+        <Constant name="taumin" dimension="time" value="0.22032ms"/>
+	<Constant name="tauVdep" dimension="time" value="0.96ms"/>
         <Constant name="midpoint" dimension="voltage" value="42mV"/>
         <Constant name="scale" dimension="voltage" value="3mV"/>
         <Dynamics>

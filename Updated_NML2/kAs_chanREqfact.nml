@@ -19,14 +19,14 @@
 
         <gate id="m" type="gateHHrates" instances="2">
             <q10Settings type="q10Fixed" fixedQ10="3"/>
-            <forwardRate type="HHSigmoidRate" rate="22.0570per_ms" midpoint="88mV" scale="16mV"/>
-            <reverseRate type="HHSigmoidRate" rate="348021.3130per_ms" midpoint="-398mV" scale="-22mV"/>
+            <forwardRate type="HHSigmoidRate" rate="22.0570306per_ms" midpoint="87.89675579999999mV" scale="16.2951634mV"/>
+            <reverseRate type="HHSigmoidRate" rate="348021.3130per_ms" midpoint="-398.22177799999997mV" scale="-21.8235302mV"/>
         </gate>
 
         <gate id="h" type="gateHHrates" instances="1">
             <q10Settings type="q10Fixed" fixedQ10="3"/>
-            <forwardRate type="HHSigmoidRate" rate="25644.9520per_ms" midpoint="-1222mV" scale="-64mV"/>
-            <reverseRate type="HHSigmoidRate" rate="0.00129per_ms" midpoint="-0.645mV" scale="26mV"/>
+            <forwardRate type="HHSigmoidRate" rate="25644.9520per_ms" midpoint="-1222mV" scale="-64.5391447mV"/>
+            <reverseRate type="HHSigmoidRate" rate="0.00128951669per_ms" midpoint="-0.635602802mV" scale="26.2013787mV"/>
         </gate>
 
     </ionChannel>

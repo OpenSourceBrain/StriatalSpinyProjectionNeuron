@@ -1,1 +1,9 @@
 Initial version in NeuroML v2.0 of a striatal spiny projection neuron (SSPN, aka medium spiny neuron) model being developed in the lab of Avrama Blackwell. Model was originally developed in GENESIS.
+
+To run the current model from the command line, use the following command:
+
+python -i test_model_load.py
+
+To run the current model from a python terminal, use the following command:
+
+import test_model_load

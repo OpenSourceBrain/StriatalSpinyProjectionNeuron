@@ -31,10 +31,10 @@
     <!-- Note this could be brought into Channels.xml as a standard rate -->
 
     <ComponentType name="Krp_h_tau_tau" extends="baseVoltageDepTime">
-        <Constant name="taumin" dimension="time" value="0.864s"/>
-	<Constant name="tauVdep" dimension="time" value="12.48s"/>
-        <Constant name="midpoint" dimension="voltage" value="-42mV"/>
-        <Constant name="scale" dimension="voltage" value="13mV"/>
+        <Constant name="taumin" dimension="time" value="0.8639999999999997s"/>
+	<Constant name="tauVdep" dimension="time" value="12.4800000000000003s"/>
+        <Constant name="midpoint" dimension="voltage" value="-42.000000000000003mV"/>
+        <Constant name="scale" dimension="voltage" value="13.000000000000001mV"/>
         <Dynamics>
             <DerivedVariable name="t" exposure="t" dimension="time" value="taumin + tauVdep / (1 + exp((v - midpoint)/scale))"/>
         </Dynamics>
@@ -43,8 +43,8 @@
     <ComponentType name="Krp_h_inf_inf" extends="baseVoltageDepVariable">
         <Constant name="ss_min" dimension="none" value="0.13"/>
         <Constant name="ss_max" dimension="none" value="0.87"/>
-        <Constant name="midpoint" dimension="voltage" value="-56mV"/>
-        <Constant name="scale" dimension="voltage" value="15mV"/>
+        <Constant name="midpoint" dimension="voltage" value="-56.000000000000001mV"/>
+        <Constant name="scale" dimension="voltage" value="14.999999999999999mV"/>
         <Dynamics>
 	    <DerivedVariable name="x" exposure="x" dimension="none" value="ss_min + ss_max / (1 + exp((v - midpoint) / scale))"/>
         </Dynamics>
